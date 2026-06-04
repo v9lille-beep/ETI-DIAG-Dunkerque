@@ -5,284 +5,272 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ETI-DIAG Dunkerque — Outil Commercial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0e17;
-  --bg2: #111827;
-  --bg3: #1a2333;
-  --surface: #1e2d42;
-  --surface2: #243347;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.15);
+  --bg:     #111620;
+  --bg2:    #1a2030;
+  --bg3:    #222b3d;
+  --border: rgba(255,255,255,0.10);
+  --border2:rgba(255,255,255,0.18);
   --accent: #e8a020;
-  --accent2: #f0b84a;
-  --blue: #3b82f6;
-  --blue2: #60a5fa;
-  --green: #22c55e;
-  --green2: #4ade80;
-  --red: #ef4444;
-  --orange: #f97316;
-  --purple: #a855f7;
-  --text: #f0f4f8;
-  --text2: #94a3b8;
-  --text3: #64748b;
+  --accent2:#f5bc50;
+  --blue:   #3b82f6;
+  --blue2:  #7cb9fc;
+  --green:  #22c55e;
+  --green2: #5fe08a;
+  --red:    #f87171;
+  --orange: #fb923c;
+  --purple: #c084fc;
+  --text:   #eef2f8;
+  --text2:  #b0bdd0;
+  --text3:  #7a8fa8;
   --radius: 10px;
-  --radius-lg: 16px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --radius-lg:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
 
-/* LOCK SCREEN */
-#lockscreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0}
-.lock-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:48px 40px;width:min(400px,90vw);text-align:center;animation:fadeUp .5s ease}
-.lock-logo{width:64px;height:64px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#000;letter-spacing:-0.5px}
-.lock-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px;color:var(--text)}
-.lock-sub{font-size:13px;color:var(--text3);margin-bottom:28px}
-.lock-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 16px;font-size:15px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s}
+/* ── LOCK ───────────────────────────────── */
+#lockscreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.lock-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:48px 40px;width:min(420px,92vw);text-align:center;animation:fadeUp .5s ease}
+.lock-logo{width:64px;height:64px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#000}
+.lock-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:700;margin-bottom:6px}
+.lock-sub{font-size:14px;color:var(--text3);margin-bottom:28px}
+.lock-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:13px 16px;font-size:15px;color:var(--text);font-family:'Inter',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s}
 .lock-input:focus{border-color:var(--accent)}
-.lock-btn{width:100%;background:var(--accent);border:none;border-radius:var(--radius);padding:13px;font-family:'Syne',sans-serif;font-size:15px;font-weight:600;color:#000;cursor:pointer;transition:background .2s,transform .1s}
+.lock-btn{width:100%;background:var(--accent);border:none;border-radius:var(--radius);padding:14px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#000;cursor:pointer;transition:background .2s}
 .lock-btn:hover{background:var(--accent2)}
-.lock-btn:active{transform:scale(0.98)}
-.lock-err{color:var(--red);font-size:12px;margin-top:8px;min-height:16px}
+.lock-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
 .lock-shake{animation:shake .4s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* HEADER */
+/* ── APP ────────────────────────────────── */
 #app{display:none}
-.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--accent);letter-spacing:-0.3px;display:flex;align-items:center;gap:8px}
-.topbar-logo span{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#000;font-size:11px;font-weight:800}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.topbar-user{font-size:12px;color:var(--text3)}
-.logout-btn{font-size:11px;padding:5px 10px;background:transparent;border:1px solid var(--border2);border-radius:6px;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif}
-.logout-btn:hover{background:var(--surface);color:var(--text)}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:var(--accent);display:flex;align-items:center;gap:8px}
+.topbar-logo span{width:30px;height:30px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#000;font-size:11px;font-weight:800}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-user{font-size:13px;color:var(--text3)}
+.logout-btn{font-size:12px;padding:6px 12px;background:transparent;border:1px solid var(--border2);border-radius:6px;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif}
+.logout-btn:hover{background:var(--bg3);color:var(--text)}
 
-/* NAV TABS */
+/* ── NAV ────────────────────────────────── */
 .nav-wrap{background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav-wrap::-webkit-scrollbar{display:none}
-.nav{display:flex;padding:0 16px;gap:4px;min-width:max-content}
-.nav-btn{padding:12px 16px;background:transparent;border:none;border-bottom:2px solid transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:6px}
-.nav-btn svg{width:15px;height:15px;flex-shrink:0}
+.nav{display:flex;padding:0 16px;gap:2px;min-width:max-content}
+.nav-btn{padding:13px 18px;background:transparent;border:none;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--text3);cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:7px}
+.nav-btn svg{width:16px;height:16px;flex-shrink:0}
 .nav-btn.on{color:var(--accent);border-bottom-color:var(--accent)}
 .nav-btn:hover:not(.on){color:var(--text2)}
 
-/* MAIN CONTENT */
-.main{padding:20px;max-width:1200px;margin:0 auto}
+/* ── MAIN ───────────────────────────────── */
+.main{padding:22px;max-width:1280px;margin:0 auto}
 @media(max-width:640px){.main{padding:14px 12px}}
-
-/* PAGE SECTIONS */
 .page{display:none}.page.on{display:block}
 
-/* STAT CARDS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
-@media(max-width:640px){.stats-row{grid-template-columns:repeat(2,1fr);gap:8px}}
-.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;position:relative;overflow:hidden}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+/* ── STATS ──────────────────────────────── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:640px){.stats-row{grid-template-columns:repeat(2,1fr);gap:10px}}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .stat-card.blue::before{background:var(--blue)}
 .stat-card.amber::before{background:var(--accent)}
 .stat-card.green::before{background:var(--green)}
 .stat-card.purple::before{background:var(--purple)}
-.stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
-.stat-sub{font-size:11px;color:var(--text3)}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:600}
+.stat-val{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:5px}
+.stat-sub{font-size:12px;color:var(--text3)}
 .stat-card.blue .stat-val{color:var(--blue2)}
 .stat-card.amber .stat-val{color:var(--accent2)}
 .stat-card.green .stat-val{color:var(--green2)}
 .stat-card.purple .stat-val{color:var(--purple)}
 
-/* CARDS */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px}
-.card-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.card-title svg{width:16px;height:16px;flex-shrink:0}
+/* ── CARDS ──────────────────────────────── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin-bottom:18px}
+.card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card-title svg{width:17px;height:17px;flex-shrink:0}
 
-/* FILTERS */
-.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.filter-select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:8px 12px;font-size:12px;color:var(--text2);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;-webkit-appearance:none;min-width:130px}
+/* ── FILTERS ────────────────────────────── */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filter-select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 14px;font-size:13px;color:var(--text2);font-family:'Inter',sans-serif;outline:none;cursor:pointer;-webkit-appearance:none;min-width:140px}
 .filter-select:focus{border-color:var(--accent);color:var(--text)}
 @media(max-width:480px){.filter-select{flex:1;min-width:0}}
 
-/* TABLE */
+/* ── TABLE ──────────────────────────────── */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{background:var(--bg3);padding:10px 12px;text-align:left;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;border-bottom:1px solid var(--border)}
-tbody td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text2)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{background:var(--bg3);padding:11px 13px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;border-bottom:1px solid var(--border)}
+tbody td{padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text2)}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(255,255,255,0.025);color:var(--text)}
-.td-name{font-weight:500;color:var(--text);font-size:13px}
-.td-note{font-size:11px;color:var(--text3);line-height:1.4}
+tbody tr:hover td{background:rgba(255,255,255,0.03);color:var(--text)}
+.td-name{font-weight:600;color:var(--text);font-size:14px}
+.td-addr{font-size:12px;color:var(--text3);line-height:1.4;margin-top:2px}
+.td-note{font-size:12px;color:var(--text3);line-height:1.5}
 
-/* BADGES */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap}
-.badge-n{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25)}
-.badge-i{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
-.badge-s{background:rgba(168,85,247,0.12);color:#c084fc;border:1px solid rgba(168,85,247,0.2)}
-.badge-c{background:rgba(249,115,22,0.12);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
-.badge-new{background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.25)}
-.badge-contacted{background:rgba(234,160,32,0.12);color:#fbbf24;border:1px solid rgba(234,160,32,0.2)}
-.badge-rdv{background:rgba(249,115,22,0.12);color:#fb923c;border:1px solid rgba(249,115,22,0.2)}
-.badge-hot{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
-.badge-partner{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.2)}
-.badge-cold{background:rgba(100,116,139,0.15);color:#94a3b8;border:1px solid rgba(100,116,139,0.2)}
-.prio-1{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.25);font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700}
-.prio-2{background:rgba(234,160,32,0.12);color:#fbbf24;border:1px solid rgba(234,160,32,0.2);font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700}
-.prio-3{background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.15);font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700}
+/* ── BADGES ─────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-n{background:rgba(59,130,246,0.15);color:#7cb9fc;border:1px solid rgba(59,130,246,0.3)}
+.badge-i{background:rgba(34,197,94,0.12);color:#5fe08a;border:1px solid rgba(34,197,94,0.25)}
+.badge-s{background:rgba(168,85,247,0.12);color:#c084fc;border:1px solid rgba(168,85,247,0.25)}
+.badge-c{background:rgba(249,115,22,0.12);color:#fb923c;border:1px solid rgba(249,115,22,0.25)}
+.badge-new{background:rgba(59,130,246,0.12);color:#7cb9fc;border:1px solid rgba(59,130,246,0.25)}
+.badge-contacted{background:rgba(234,160,32,0.15);color:#fbbf24;border:1px solid rgba(234,160,32,0.3)}
+.badge-rdv{background:rgba(249,115,22,0.12);color:#fb923c;border:1px solid rgba(249,115,22,0.25)}
+.badge-hot{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25)}
+.badge-partner{background:rgba(34,197,94,0.12);color:#5fe08a;border:1px solid rgba(34,197,94,0.25)}
+.badge-cold{background:rgba(100,116,139,0.15);color:#94a3b8;border:1px solid rgba(100,116,139,0.25)}
+.prio-1{background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700}
+.prio-2{background:rgba(234,160,32,0.12);color:#fbbf24;border:1px solid rgba(234,160,32,0.25);font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700}
+.prio-3{background:rgba(34,197,94,0.1);color:#5fe08a;border:1px solid rgba(34,197,94,0.2);font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700}
 .status-badge{cursor:pointer;transition:opacity .15s;user-select:none}
 .status-badge:hover{opacity:.75}
 
-/* ZONE COLORS */
-.zone-a{color:#60a5fa;font-weight:600}
-.zone-b{color:#4ade80;font-weight:600}
+/* ── ZONES ──────────────────────────────── */
+.zone-a{color:#7cb9fc;font-weight:600}
+.zone-b{color:#5fe08a;font-weight:600}
 .zone-c{color:#fb923c;font-weight:600}
 .zone-d{color:#c084fc;font-weight:600}
 .zone-e{color:#f472b6;font-weight:600}
 
-/* PROGRESS BARS */
-.prog{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:8px}
-.prog-fill{height:100%;border-radius:2px;transition:width .4s}
-.prog-blue{background:var(--blue)}
-.prog-amber{background:var(--accent)}
-.prog-green{background:var(--green)}
+/* ── COMMENT ────────────────────────────── */
+.comment-cell{position:relative}
+.comment-text{font-size:12px;color:var(--text3);font-style:italic;white-space:pre-wrap;max-width:180px}
+.comment-text.empty{color:var(--border2);font-style:normal}
+.comment-edit-btn{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:11px;color:var(--accent);cursor:pointer;background:none;border:none;padding:0;font-family:'Inter',sans-serif}
+.comment-edit-btn:hover{color:var(--accent2)}
+/* modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;width:min(460px,92vw)}
+.modal h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.modal-prospect{font-size:13px;color:var(--text3);margin-bottom:14px}
+.modal textarea{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--text);font-family:'Inter',sans-serif;outline:none;resize:vertical;min-height:100px;line-height:1.6}
+.modal textarea:focus{border-color:var(--accent)}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.btn-save{background:var(--accent);border:none;border-radius:8px;padding:9px 20px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#000;cursor:pointer}
+.btn-save:hover{background:var(--accent2)}
+.btn-cancel{background:transparent;border:1px solid var(--border2);border-radius:8px;padding:9px 20px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text2);cursor:pointer}
+.btn-cancel:hover{background:var(--bg3)}
 
-/* TIMELINE */
-.tl-wrap{position:relative;padding-left:24px}
-.tl-wrap::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:var(--border2)}
-.tl-item{position:relative;margin-bottom:20px}
-.tl-item::before{content:'';position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent)}
+/* ── MOBILE CARDS ───────────────────────── */
+@media(max-width:600px){
+  .desktop-only{display:none}
+  .mobile-cards{display:block}
+  .prospect-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+  .pc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+  .pc-name{font-weight:600;font-size:14px;color:var(--text)}
+  .pc-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+  .pc-row{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}
+  .pc-row:last-child{border-bottom:none}
+  .pc-row span:first-child{color:var(--text3);flex-shrink:0}
+  .pc-row span:last-child{color:var(--text2);text-align:right}
+  .pc-comment{margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+  .pc-comment-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;font-weight:600}
+  .pc-comment-val{font-size:13px;color:var(--text2);font-style:italic}
+  .pc-comment-btn{display:inline-block;margin-top:5px;font-size:12px;color:var(--accent);cursor:pointer;background:none;border:none;padding:0;font-family:'Inter',sans-serif}
+}
+@media(min-width:601px){.mobile-cards{display:none}}
+
+/* ── TIMELINE ───────────────────────────── */
+.tl-wrap{position:relative;padding-left:26px}
+.tl-wrap::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:var(--border2)}
+.tl-item{position:relative;margin-bottom:22px}
+.tl-item::before{content:'';position:absolute;left:-21px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent)}
 .tl-item.phase1::before{border-color:var(--blue)}
 .tl-item.phase2::before{border-color:var(--accent)}
 .tl-item.phase3::before{border-color:var(--green)}
-.tl-week{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding:2px 8px;border-radius:4px;display:inline-block}
-.wk-blue{background:rgba(59,130,246,0.15);color:#60a5fa}
+.tl-week{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;padding:2px 9px;border-radius:4px;display:inline-block}
+.wk-blue{background:rgba(59,130,246,0.15);color:#7cb9fc}
 .wk-amber{background:rgba(234,160,32,0.12);color:#fbbf24}
-.wk-green{background:rgba(34,197,94,0.1);color:#4ade80}
-.tl-h{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;margin-top:5px}
-.tl-p{font-size:12px;color:var(--text3);line-height:1.6}
+.wk-green{background:rgba(34,197,94,0.1);color:#5fe08a}
+.tl-h{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;margin-top:6px}
+.tl-p{font-size:13px;color:var(--text3);line-height:1.65}
 
-/* SCHED GRID */
-.sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+/* ── SCHED ──────────────────────────────── */
+.sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 @media(max-width:480px){.sched-grid{grid-template-columns:1fr}}
-.sched-slot{background:var(--bg3);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--border)}
-.sched-slot h4{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:5px}
-.sched-slot p{font-size:11px;color:var(--text3);line-height:1.5}
+.sched-slot{background:var(--bg3);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border)}
+.sched-slot h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.sched-slot p{font-size:13px;color:var(--text3);line-height:1.6}
 
-/* DIAG FICHES */
-.diag-select-wrap{margin-bottom:14px}
-.diag-select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;width:100%;outline:none;-webkit-appearance:none;cursor:pointer}
-.fiche{display:none}.fiche.on{display:block}
-.fiche-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-@media(max-width:560px){.fiche-grid{grid-template-columns:1fr}}
-.fiche-item{background:var(--bg3);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--border)}
-.fiche-item h4{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.fiche-item p{font-size:12px;color:var(--text3);line-height:1.6}
-.alert{border-radius:var(--radius);padding:12px 14px;font-size:12px;line-height:1.6;margin-top:10px;display:flex;gap:8px;align-items:flex-start}
-.alert svg{flex-shrink:0;margin-top:1px;width:15px;height:15px}
-.alert-warn{background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);color:#fb923c}
-.alert-info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);color:#60a5fa}
-.alert-success{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:#4ade80}
-
-/* CALCULATEUR */
-.calc-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.calc-row label{font-size:12px;color:var(--text3);flex:0 0 180px}
-@media(max-width:480px){.calc-row{flex-wrap:wrap}.calc-row label{flex:0 0 100%}}
-.calc-row input[type=range]{flex:1;accent-color:var(--accent);height:4px}
-.calc-row .val{font-size:13px;font-weight:600;color:var(--text);min-width:60px;text-align:right;font-family:'Syne',sans-serif}
-.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
-@media(min-width:640px){.result-grid{grid-template-columns:repeat(4,1fr)}}
-.result-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
-.result-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
-.result-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--accent)}
-.scenario-table{width:100%;border-collapse:collapse;font-size:12px}
-.scenario-table th{padding:8px 10px;text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);font-weight:600}
-.scenario-table td{padding:10px;border-bottom:1px solid var(--border);color:var(--text2)}
-.scenario-table tr:last-child td{border-bottom:none}
-.scenario-table td:last-child{font-family:'Syne',sans-serif;font-weight:700;color:var(--green2)}
-
-/* KIT - CHECKLIST */
-.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s}
-.checklist-item:last-child{border-bottom:none}
-.check-icon{width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--text3);transition:color .2s}
-.check-icon.checked{color:var(--green)}
-.checklist-item span{font-size:12px;color:var(--text2);line-height:1.5;transition:color .2s}
-.checklist-item.done span{color:var(--text3);text-decoration:line-through}
-
-/* SCRIPTS */
-.script-block{background:var(--bg3);border-radius:var(--radius);padding:14px;margin-bottom:10px;border:1px solid var(--border);border-left:3px solid var(--accent)}
-.script-block strong{display:block;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.script-block p{font-size:12px;color:var(--text2);line-height:1.6;font-style:italic}
-
-/* KPI TABLE */
-.kpi-table{width:100%;border-collapse:collapse;font-size:12px}
-.kpi-table th{padding:8px 10px;background:var(--bg3);text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap}
-.kpi-table td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text2);font-size:12px}
-.kpi-table tr:last-child td{border-bottom:none}
-.kpi-table td:first-child{color:var(--text);font-weight:500}
-
-/* STEPS */
-.step-wrap{display:flex;flex-direction:column;gap:12px}
-.step{display:flex;gap:12px;align-items:flex-start}
-.step-num{width:26px;height:26px;border-radius:50%;background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.3);color:var(--accent);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'Syne',sans-serif}
-.step-body h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
-.step-body p{font-size:12px;color:var(--text3);line-height:1.55}
-
-/* PHASE HEADER */
-.phase-header{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.phase-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.phase-icon svg{width:18px;height:18px}
+/* ── PHASE HEADER ───────────────────────── */
+.phase-header{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.phase-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phase-icon svg{width:20px;height:20px}
 .phase-icon.blue{background:rgba(59,130,246,0.15)}
 .phase-icon.amber{background:rgba(232,160,32,0.15)}
 .phase-icon.green{background:rgba(34,197,94,0.1)}
-.phase-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text)}
-.phase-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.phase-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+.phase-sub{font-size:13px;color:var(--text3);margin-top:3px}
 
-/* CIBLES PAGE */
-.cible-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
-.cible-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
-.cible-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cible-icon svg{width:18px;height:18px}
+/* ── CIBLE CARDS ────────────────────────── */
+.cible-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px}
+.cible-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px}
+.cible-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cible-icon svg{width:20px;height:20px}
 .cible-icon.blue{background:rgba(59,130,246,0.15);color:var(--blue2)}
 .cible-icon.green{background:rgba(34,197,94,0.1);color:var(--green2)}
 .cible-icon.amber{background:rgba(232,160,32,0.12);color:var(--accent2)}
 .cible-icon.purple{background:rgba(168,85,247,0.12);color:#c084fc}
 .cible-icon.red{background:rgba(239,68,68,0.1);color:#f87171}
 .cible-icon.orange{background:rgba(249,115,22,0.1);color:#fb923c}
-.cible-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text)}
-.cible-pri{display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle}
+.cible-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text)}
+.cible-pri{display:inline-block;font-size:11px;padding:2px 9px;border-radius:4px;margin-left:8px;vertical-align:middle;font-weight:600}
 .cible-pri.high{background:rgba(239,68,68,0.15);color:#f87171}
 .cible-pri.med{background:rgba(234,160,32,0.12);color:#fbbf24}
-.cible-desc{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:10px}
-.tags-wrap{display:flex;flex-wrap:wrap;gap:5px}
-.tag{font-size:10px;padding:3px 9px;border-radius:20px;background:var(--bg3);border:1px solid var(--border2);color:var(--text3)}
+.cible-desc{font-size:13px;color:var(--text3);line-height:1.65;margin-bottom:10px}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--bg3);border:1px solid var(--border2);color:var(--text3)}
 
-/* MOBILE TABLE CARDS (fallback) */
-@media(max-width:580px){
-  .desktop-only{display:none}
-  .mobile-cards{display:block}
-  .prospect-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px}
-  .pc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-  .pc-name{font-weight:500;font-size:13px;color:var(--text)}
-  .pc-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
-  .pc-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--border)}
-  .pc-row:last-child{border-bottom:none}
-  .pc-row span:first-child{color:var(--text3)}
-  .pc-row span:last-child{color:var(--text2);text-align:right}
-}
-@media(min-width:581px){.mobile-cards{display:none}}
+/* ── SIMULATEUR ─────────────────────────── */
+.calc-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.calc-row label{font-size:13px;color:var(--text3);flex:0 0 190px;font-weight:500}
+@media(max-width:480px){.calc-row{flex-wrap:wrap}.calc-row label{flex:0 0 100%}}
+.calc-row input[type=range]{flex:1;accent-color:var(--accent);height:4px}
+.calc-row .val{font-size:14px;font-weight:600;color:var(--text);min-width:65px;text-align:right;font-family:'Syne',sans-serif}
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+@media(min-width:640px){.result-grid{grid-template-columns:repeat(4,1fr)}}
+.result-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.result-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;font-weight:600}
+.result-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--accent)}
+.scenario-table{width:100%;border-collapse:collapse;font-size:13px}
+.scenario-table th{padding:9px 11px;text-align:left;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);font-weight:600}
+.scenario-table td{padding:11px;border-bottom:1px solid var(--border);color:var(--text2)}
+.scenario-table tr:last-child td{border-bottom:none}
+.scenario-table td:last-child{font-family:'Syne',sans-serif;font-weight:700;color:var(--green2)}
 
-/* SECTION DIVIDER */
-.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+/* ── KIT ─────────────────────────────────  */
+.script-block{background:var(--bg3);border-radius:var(--radius);padding:16px;margin-bottom:12px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.script-block strong{display:block;font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.script-block p{font-size:13px;color:var(--text2);line-height:1.65;font-style:italic}
+.kpi-table{width:100%;border-collapse:collapse;font-size:13px}
+.kpi-table th{padding:9px 11px;background:var(--bg3);text-align:left;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap}
+.kpi-table td{padding:10px 11px;border-bottom:1px solid var(--border);color:var(--text2)}
+.kpi-table tr:last-child td{border-bottom:none}
+.kpi-table td:first-child{color:var(--text);font-weight:500}
+.step-wrap{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.3);color:var(--accent);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Syne',sans-serif}
+.step-body h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.step-body p{font-size:13px;color:var(--text3);line-height:1.6}
+
+/* ── ALERTS ─────────────────────────────── */
+.alert{border-radius:var(--radius);padding:14px 16px;font-size:13px;line-height:1.65;margin-top:12px;display:flex;gap:10px;align-items:flex-start}
+.alert svg{flex-shrink:0;margin-top:1px;width:16px;height:16px}
+.alert-warn{background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.25);color:#fb923c}
+.alert-info{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.22);color:#7cb9fc}
+.alert-success{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:#5fe08a}
+.highlight{background:rgba(232,160,32,0.08);border:1px solid rgba(232,160,32,0.2);border-radius:var(--radius);padding:13px 16px;font-size:13px;color:var(--accent2);line-height:1.65;margin-top:12px}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin:22px 0 12px;display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* GENERAL */
+/* ── MISC ───────────────────────────────── */
 a{color:var(--blue2);text-decoration:none}
 a:hover{text-decoration:underline}
 select option{background:var(--bg2);color:var(--text)}
-.highlight{background:rgba(232,160,32,0.08);border:1px solid rgba(232,160,32,0.2);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--accent2);line-height:1.6;margin-top:10px}
-
-/* SCROLL */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
@@ -290,7 +278,7 @@ select option{background:var(--bg2);color:var(--text)}
 </head>
 <body>
 
-<!-- LOCK SCREEN -->
+<!-- ═══════════════ LOCK SCREEN ═══════════════ -->
 <div id="lockscreen">
   <div class="lock-card">
     <div class="lock-logo">ETI</div>
@@ -302,15 +290,12 @@ select option{background:var(--bg2);color:var(--text)}
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- ═══════════════ MAIN APP ═══════════════ -->
 <div id="app">
   <div class="topbar">
-    <div class="topbar-logo">
-      <span>ETI</span>
-      ETI-DIAG Dunkerque
-    </div>
+    <div class="topbar-logo"><span>ETI</span>ETI-DIAG Dunkerque</div>
     <div class="topbar-right">
-      <span class="topbar-user">Christophe · Commercial</span>
+      <span class="topbar-user">Commercial</span>
       <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </div>
   </div>
@@ -329,48 +314,27 @@ select option{background:var(--bg2);color:var(--text)}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Planning 12 sem.
       </button>
-      <button class="nav-btn" onclick="go('diag',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        Fiches Diagnostics
-      </button>
       <button class="nav-btn" onclick="go('calc',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="2" y1="8" x2="20" y2="8"/><line x1="2" y1="13" x2="20" y2="13"/><line x1="2" y1="18" x2="20" y2="18"/></svg>
         Simulateur ROI
       </button>
       <button class="nav-btn" onclick="go('kit',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        Kit Christophe
+        Kit Commercial
       </button>
     </div>
   </div>
 
   <div class="main">
 
-    <!-- CRM PAGE -->
+    <!-- ══════════ CRM ══════════ -->
     <div id="p-crm" class="page on">
       <div class="stats-row">
-        <div class="stat-card blue">
-          <div class="stat-label">Prospects total</div>
-          <div class="stat-val" id="cnt-total">32</div>
-          <div class="stat-sub">tous statuts</div>
-        </div>
-        <div class="stat-card amber">
-          <div class="stat-label">À contacter</div>
-          <div class="stat-val" id="cnt-new">32</div>
-          <div class="stat-sub">premier contact</div>
-        </div>
-        <div class="stat-card purple">
-          <div class="stat-label">En cours</div>
-          <div class="stat-val" id="cnt-progress">0</div>
-          <div class="stat-sub">relance active</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-label">Partenaires</div>
-          <div class="stat-val" id="cnt-partner">0</div>
-          <div class="stat-sub">convention signée</div>
-        </div>
+        <div class="stat-card blue"><div class="stat-label">Prospects total</div><div class="stat-val" id="cnt-total">32</div><div class="stat-sub">tous statuts</div></div>
+        <div class="stat-card amber"><div class="stat-label">À contacter</div><div class="stat-val" id="cnt-new">32</div><div class="stat-sub">premier contact</div></div>
+        <div class="stat-card purple"><div class="stat-label">En cours</div><div class="stat-val" id="cnt-progress">0</div><div class="stat-sub">relance active</div></div>
+        <div class="stat-card green"><div class="stat-label">Partenaires</div><div class="stat-val" id="cnt-partner">0</div><div class="stat-sub">convention signée</div></div>
       </div>
-
       <div class="card">
         <div class="filter-row">
           <select class="filter-select" id="filter-zone" onchange="renderCRM()">
@@ -398,36 +362,30 @@ select option{background:var(--bg2);color:var(--text)}
             <option value="cold">Froid</option>
           </select>
         </div>
-
-        <!-- Desktop table -->
         <div class="tbl-wrap desktop-only">
           <table>
-            <thead>
-              <tr>
-                <th style="width:22%">Prospect</th>
-                <th style="width:12%">Zone / Type</th>
-                <th style="width:8%">Priorité</th>
-                <th style="width:13%">Statut</th>
-                <th style="width:14%">Contact clé</th>
-                <th style="width:12%">Téléphone</th>
-                <th style="width:19%">Note</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th style="width:18%">Prospect</th>
+              <th style="width:10%">Zone / Type</th>
+              <th style="width:6%">Prio.</th>
+              <th style="width:11%">Statut</th>
+              <th style="width:13%">Contact clé</th>
+              <th style="width:11%">Téléphone</th>
+              <th style="width:16%">Note</th>
+              <th style="width:15%">Commentaire</th>
+            </tr></thead>
             <tbody id="crm-tbody"></tbody>
           </table>
         </div>
-
-        <!-- Mobile cards -->
         <div class="mobile-cards" id="crm-cards"></div>
       </div>
-
       <div class="alert alert-info">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>Cliquer sur le badge de statut pour faire avancer un prospect dans le pipeline. Les compteurs se recalculent automatiquement.</span>
+        <span>Cliquer sur le badge de statut pour faire progresser un prospect dans le pipeline. Cliquer sur ✏️ pour ajouter un commentaire. Les compteurs se recalculent automatiquement.</span>
       </div>
     </div>
 
-    <!-- CIBLES PAGE -->
+    <!-- ══════════ CIBLES ══════════ -->
     <div id="p-cibles" class="page">
       <div class="section-label">Cœur de cible</div>
       <div class="cible-card">
@@ -435,7 +393,7 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="cible-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <div>
             <div class="cible-title">Notaires <span class="cible-pri high">Priorité haute</span></div>
-            <div class="cible-desc" style="margin-top:4px">Prescripteur naturel n°1 — chaque transaction immobilière passe par l'étude. Un notaire actif génère 3 à 15 missions/mois. Argumenter sur la <strong style="color:var(--text2)">réactivité 24–48h</strong> et la fiabilité du dossier pour ne jamais bloquer un acte. Viser en priorité les études avec service de négociation intégré (DKW Conseil, Notaires Jean Bart).</div>
+            <div class="cible-desc" style="margin-top:5px">Prescripteur naturel n°1 — chaque transaction immobilière passe par l'étude. Un notaire actif génère 3 à 15 missions/mois. Argumenter sur la <strong style="color:var(--text2)">réactivité 24–48h</strong> et la fiabilité du dossier pour ne jamais bloquer un acte. Viser en priorité les études avec service de négociation intégré (DKW Conseil, Notaires Jean Bart).</div>
             <div class="tags-wrap"><span class="tag">Ventes résidentielles</span><span class="tag">Successions</span><span class="tag">Donations</span><span class="tag">Copropriété</span><span class="tag">Urgences acte</span></div>
           </div>
         </div>
@@ -445,19 +403,18 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="cible-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
           <div>
             <div class="cible-title">Agences immobilières <span class="cible-pri high">Priorité haute</span></div>
-            <div class="cible-desc" style="margin-top:4px">Prescripteur direct dès la signature du mandat. L'agent veut que l'annonce parte vite — le diagnostic doit être disponible avant la mise en ligne. Proposer un <strong style="color:var(--text2)">interlocuteur dédié</strong> par agence et un tarif volume. Les agences à forte activité locative (gestion) génèrent des missions très récurrentes.</div>
+            <div class="cible-desc" style="margin-top:5px">Prescripteur direct dès la signature du mandat. L'agent veut que l'annonce parte vite — le diagnostic doit être disponible avant la mise en ligne. Proposer un <strong style="color:var(--text2)">interlocuteur dédié</strong> par agence et un tarif volume. Les agences à forte activité locative génèrent des missions très récurrentes.</div>
             <div class="tags-wrap"><span class="tag">Mandats vente</span><span class="tag">DPE annonce</span><span class="tag">Gestion locative</span><span class="tag">Estimations</span></div>
           </div>
         </div>
       </div>
-
       <div class="section-label">Cibles haute valeur récurrente</div>
       <div class="cible-card">
         <div class="cible-header">
           <div class="cible-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
           <div>
             <div class="cible-title">Syndics de copropriété <span class="cible-pri high">Volume élevé</span></div>
-            <div class="cible-desc" style="margin-top:4px">Meilleur gisement de <strong style="color:var(--text2)">volume récurrent</strong> — un seul contrat-cadre avec Foncia ou Nexity = des dizaines de missions par mois. Chaque immeuble géré peut nécessiter un DPE collectif, audit énergétique, DTG, ou amiante parties communes. Approche : proposer une grille tarifaire contrat-cadre avec engagement de délai.</div>
+            <div class="cible-desc" style="margin-top:5px">Meilleur gisement de <strong style="color:var(--text2)">volume récurrent</strong> — un seul contrat-cadre avec Foncia ou Nexity = des dizaines de missions par mois. Chaque immeuble géré peut nécessiter DPE collectif, audit énergétique, DTG, amiante parties communes. Proposer une grille tarifaire contrat-cadre avec engagement de délai.</div>
             <div class="tags-wrap"><span class="tag">DPE collectif</span><span class="tag">Audit énergétique</span><span class="tag">DTG</span><span class="tag">Amiante PC</span><span class="tag">Contrat-cadre</span></div>
           </div>
         </div>
@@ -467,19 +424,18 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="cible-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
           <div>
             <div class="cible-title">Administrateurs de biens <span class="cible-pri med">Récurrent</span></div>
-            <div class="cible-desc" style="margin-top:4px">Chaque entrée/sortie locataire peut nécessiter DPE, plomb, surface Boutin. Un gestionnaire avec 80 biens en portefeuille génère 40+ renouvellements de bail par an. Cible souvent négligée par les concurrents — angle d'attaque privilégié.</div>
+            <div class="cible-desc" style="margin-top:5px">Chaque entrée/sortie locataire peut nécessiter DPE, plomb, surface Boutin. Un gestionnaire avec 80 biens génère 40+ renouvellements de bail par an. Cible souvent négligée par les concurrents.</div>
             <div class="tags-wrap"><span class="tag">DPE location</span><span class="tag">CREP plomb</span><span class="tag">Loi Boutin</span><span class="tag">Elec/gaz</span></div>
           </div>
         </div>
       </div>
-
       <div class="section-label">Prescripteurs secondaires</div>
       <div class="cible-card">
         <div class="cible-header">
           <div class="cible-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
           <div>
             <div class="cible-title">Artisans du bâtiment</div>
-            <div class="cible-desc" style="margin-top:4px">Obligation légale depuis 2012 : tout artisan intervenant sur un bâtiment d'avant 1997 doit disposer d'un diagnostic amiante avant travaux. Maçons, couvreurs, plombiers, électriciens — ils cherchent un diagnostiqueur réactif pour débloquer leurs chantiers. Argument fort : <strong style="color:var(--text2)">"Je peux vous donner une réponse en 48h pour ne pas bloquer votre chantier."</strong></div>
+            <div class="cible-desc" style="margin-top:5px">Obligation légale depuis 2012 : tout artisan intervenant sur un bâtiment d'avant 1997 doit disposer d'un diagnostic amiante avant travaux. Maçons, couvreurs, plombiers, électriciens — ils cherchent un diagnostiqueur réactif. Argument : <strong style="color:var(--text2)">«&nbsp;Réponse en 48h pour ne pas bloquer votre chantier.&nbsp;»</strong></div>
             <div class="tags-wrap"><span class="tag">Amiante avant travaux</span><span class="tag">HAP</span><span class="tag">Repérage démolition</span></div>
           </div>
         </div>
@@ -489,7 +445,7 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="cible-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
           <div>
             <div class="cible-title">Courtiers en prêt immobilier</div>
-            <div class="cible-desc" style="margin-top:4px">Cafpi, Meilleurtaux, courtiers indépendants — ils voient les acheteurs <em>avant</em> la signature du compromis. Un courtier peut glisser le nom d'ETI-DIAG lors du conseil financement. Approche : déjeuner de partenariat, carte de visite à distribuer à leurs clients, accord de réciprocité.</div>
+            <div class="cible-desc" style="margin-top:5px">Cafpi, Meilleurtaux, courtiers indépendants — ils voient les acheteurs <em>avant</em> la signature du compromis. Un courtier peut glisser le nom d'ETI-DIAG lors du conseil financement. Approche : déjeuner de partenariat, accord de réciprocité.</div>
             <div class="tags-wrap"><span class="tag">Acheteurs primo</span><span class="tag">Investisseurs</span><span class="tag">Prescription amont</span></div>
           </div>
         </div>
@@ -499,27 +455,22 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="cible-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
           <div>
             <div class="cible-title">CGP &amp; experts-comptables</div>
-            <div class="cible-desc" style="margin-top:4px">Interviennent lors de cessions, divorces, successions impliquant des actifs immobiliers. Profil client haut de gamme, peu volumique mais à forte valeur. Approche LinkedIn en amont — profils visibles et accessibles. 1 CGP convaincu peut générer 5–8 missions/an sur des biens de valeur.</div>
+            <div class="cible-desc" style="margin-top:5px">Interviennent lors de cessions, divorces, successions impliquant des actifs immobiliers. Profil client haut de gamme, peu volumique mais à forte valeur. Approche LinkedIn en amont. 1 CGP convaincu = 5–8 missions/an sur des biens de valeur.</div>
             <div class="tags-wrap"><span class="tag">Cessions sociétés</span><span class="tag">Divorces</span><span class="tag">Patrimoine</span></div>
           </div>
         </div>
       </div>
       <div class="alert alert-warn" style="margin-top:4px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <span><strong>Argument différenciateur clé Dunkerque :</strong> Zone industrielle portuaire (3e port de France) = PPRT très présents = ERP plus complexes qu'ailleurs + parc immobilier majoritairement avant 1997 = amiante systématique. ETI-DIAG a une connaissance locale du territoire qui a une valeur réelle.</span>
+        <span><strong>Argument différenciateur clé Dunkerque :</strong> Zone industrielle portuaire (3e port de France) = PPRT très présents = ERP plus complexes qu'ailleurs + parc immobilier majoritairement avant 1997 = amiante systématique. ETI-DIAG a une connaissance locale unique.</span>
       </div>
     </div>
 
-    <!-- PLANNING PAGE -->
+    <!-- ══════════ PLANNING ══════════ -->
     <div id="p-planning" class="page">
       <div class="phase-header">
-        <div class="phase-icon blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div>
-          <div class="phase-title">Phase 1 — Semaines 1 à 4 : Découverte terrain</div>
-          <div class="phase-sub">Objectif : couvrir 100% des zones, identifier les interlocuteurs, déposer les plaquettes</div>
-        </div>
+        <div class="phase-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="#7cb9fc" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div><div class="phase-title">Phase 1 — Semaines 1 à 4 : Découverte terrain</div><div class="phase-sub">Objectif : couvrir 100% des zones, identifier les interlocuteurs, déposer les plaquettes</div></div>
       </div>
       <div class="card">
         <div class="tl-wrap">
@@ -531,12 +482,12 @@ select option{background:var(--bg2);color:var(--text)}
           <div class="tl-item phase1">
             <span class="tl-week wk-blue">Sem. 2 — Zones B &amp; C</span>
             <div class="tl-h">Coudekerque-Branche / Saint-Pol-sur-Mer / Grande-Synthe</div>
-            <div class="tl-p">Jour 1 : Zone B (Legrand &amp; Pain, Westeel, Logehome, Pol Immo, JLV). Jour 2 : Zone C (Grande-Synthe, JLV Gravelines, 2 syndics de copropriété à cibler). Premiers contacts syndics Foncia et Nexity.</div>
+            <div class="tl-p">Jour 1 : Zone B (Legrand &amp; Pain, Westeel, Logehome, Pol Immo, JLV). Jour 2 : Zone C (Grande-Synthe, JLV Gravelines). Premiers contacts syndics Foncia et Nexity.</div>
           </div>
           <div class="tl-item phase1">
             <span class="tl-week wk-blue">Sem. 3 — Zones D &amp; E</span>
             <div class="tl-h">Bourbourg / Bergues / Bray-Dunes / Téteghem</div>
-            <div class="tl-p">Demi-journée Bourbourg (Delecroix + Guffroy) + demi-journée Bergues (Flandres Littoral ×2). Après-midi : Bray-Dunes, Leffrinckoucke, Téteghem. Zones moins denses mais concurrence plus faible — image de sérieux et de proximité.</div>
+            <div class="tl-p">Demi-journée Bourbourg (Delecroix + Guffroy) + demi-journée Bergues (Flandres Littoral ×2). Après-midi : Bray-Dunes, Leffrinckoucke, Téteghem. Zones moins denses mais concurrence plus faible.</div>
           </div>
           <div class="tl-item phase1">
             <span class="tl-week wk-blue">Sem. 4 — Reboucle A + prescripteurs</span>
@@ -545,70 +496,54 @@ select option{background:var(--bg2);color:var(--text)}
           </div>
         </div>
       </div>
-
       <div class="phase-header" style="margin-top:8px">
-        <div class="phase-icon amber">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#e8a020" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <div>
-          <div class="phase-title">Phase 2 — Semaines 5 à 8 : Qualification &amp; RDV</div>
-          <div class="phase-sub">Objectif : transformer les contacts chauds en rendez-vous, signer les premières conventions</div>
-        </div>
+        <div class="phase-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="#e8a020" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div><div class="phase-title">Phase 2 — Semaines 5 à 8 : Qualification &amp; RDV</div><div class="phase-sub">Objectif : transformer les contacts chauds en rendez-vous, signer les premières conventions</div></div>
       </div>
       <div class="card">
         <div class="tl-wrap">
           <div class="tl-item phase2">
             <span class="tl-week wk-amber">Sem. 5 — Relances téléphoniques</span>
             <div class="tl-h">Appels matinaux + qualification du pipeline</div>
-            <div class="tl-p">Appels le matin 8h30–9h avant tournée. Script court : <em>"Suite à mon passage, avez-vous eu le temps de consulter notre plaquette ? Je peux passer 15 minutes quand ça vous arrange."</em> Objectif : 5 RDV qualifiés dans la semaine.</div>
+            <div class="tl-p">Appels le matin 8h30–9h avant tournée. Script : <em>«&nbsp;Suite à mon passage, avez-vous eu le temps de consulter notre plaquette ? Je peux passer 15 minutes quand ça vous arrange.&nbsp;»</em> Objectif : 5 RDV qualifiés dans la semaine.</div>
           </div>
           <div class="tl-item phase2">
             <span class="tl-week wk-amber">Sem. 6–7 — RDV approfondis</span>
             <div class="tl-h">Présentations 20–30 min + remise convention</div>
-            <div class="tl-p">Apporter grille tarifaire partenaire + exemple de rapport + fiche obligations légales 2025. Proposer la convention de partenariat sur place. Pour les syndics : présenter une offre contrat-cadre avec engagement de délai et tarif dégressif par volume.</div>
+            <div class="tl-p">Apporter grille tarifaire partenaire + exemple de rapport + fiche obligations légales 2025. Proposer la convention de partenariat sur place. Pour les syndics : offre contrat-cadre avec engagement de délai et tarif dégressif par volume.</div>
           </div>
           <div class="tl-item phase2">
             <span class="tl-week wk-amber">Sem. 8 — 2e tournée zones B/C/D/E</span>
             <div class="tl-h">Deuxième passage périphérie + gestionnaires locatifs</div>
-            <div class="tl-p">Revisiter les prospects froids — certains ont entre-temps entendu parler d'ETI-DIAG. Cibler spécifiquement les agences à forte activité de gestion locative (DPE Boutin, CREP récurrents). Le 2e passage est souvent décisif : on passe de "inconnu" à "familier".</div>
+            <div class="tl-p">Revisiter les prospects froids — certains ont entre-temps entendu parler d'ETI-DIAG. Cibler les agences à forte activité de gestion locative. Le 2e passage est souvent décisif.</div>
           </div>
         </div>
       </div>
-
       <div class="phase-header" style="margin-top:8px">
-        <div class="phase-icon green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg>
-        </div>
-        <div>
-          <div class="phase-title">Phase 3 — Semaines 9 à 12 : Fidélisation &amp; Développement</div>
-          <div class="phase-sub">Objectif : consolider les partenariats, activer les prescripteurs secondaires, poser les bases S2</div>
-        </div>
+        <div class="phase-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg></div>
+        <div><div class="phase-title">Phase 3 — Semaines 9 à 12 : Fidélisation &amp; Développement</div><div class="phase-sub">Objectif : consolider les partenariats, activer les prescripteurs secondaires, poser les bases S2</div></div>
       </div>
       <div class="card">
         <div class="tl-wrap">
           <div class="tl-item phase3">
             <span class="tl-week wk-green">Sem. 9–10 — Suivi partenaires</span>
             <div class="tl-h">Feedback qualité + fidélisation</div>
-            <div class="tl-p">Visite ou appel express aux partenaires signés : <em>"Comment s'est passée la première mission ?"</em>. Personnaliser les rapports à leur logo si pas encore fait. Un partenaire satisfait en parle spontanément à ses confrères — c'est le meilleur canal d'acquisition.</div>
+            <div class="tl-p">Visite ou appel express aux partenaires signés : <em>«&nbsp;Comment s'est passée la première mission ?&nbsp;»</em>. Un partenaire satisfait en parle spontanément à ses confrères — c'est le meilleur canal d'acquisition.</div>
           </div>
           <div class="tl-item phase3">
             <span class="tl-week wk-green">Sem. 11 — Prescripteurs secondaires</span>
             <div class="tl-h">CGP, experts-comptables, avocats droit immo</div>
-            <div class="tl-p">Visites nécessitant préparation (LinkedIn avant). Argument chiffré : <em>"Vos clients qui cèdent un bien ont besoin du diagnostic dès le compromis — on peut être leur contact de confiance."</em> Prévoir 1 déjeuner de prescription ce mois-ci.</div>
+            <div class="tl-p">Visites nécessitant préparation (LinkedIn avant). Argument : <em>«&nbsp;Vos clients qui cèdent un bien ont besoin du diagnostic dès le compromis — on peut être leur contact de confiance.&nbsp;»</em> Prévoir 1 déjeuner de prescription ce mois-ci.</div>
           </div>
           <div class="tl-item phase3">
             <span class="tl-week wk-green">Sem. 12 — Bilan &amp; Plan S2</span>
             <div class="tl-h">Revue avec le dirigeant + objectifs trimestre 2</div>
-            <div class="tl-p">Taux de conversion, zones les plus fertiles, ajustement tarifaire, 5 partenaires "piliers" à chouchouter. Définir 3 actions prioritaires pour le trimestre suivant. Mettre à jour le CRM terrain.</div>
+            <div class="tl-p">Taux de conversion, zones les plus fertiles, ajustement tarifaire, 5 partenaires «&nbsp;piliers&nbsp;» à chouchouter. Définir 3 actions prioritaires pour le trimestre suivant.</div>
           </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--purple)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Rythme quotidien recommandé
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--purple)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Rythme quotidien recommandé</div>
         <div class="sched-grid">
           <div class="sched-slot"><h4>8h30 – 9h00</h4><p>Préparation : CRM, liste du jour, noms interlocuteurs, chargement matériel.</p></div>
           <div class="sched-slot"><h4>9h00 – 12h00</h4><p>Tournée matinale — 4 à 6 visites. Secteur dense ou 2–3 visites périphériques.</p></div>
@@ -619,287 +554,95 @@ select option{background:var(--bg2);color:var(--text)}
       </div>
     </div>
 
-    <!-- DIAGNOSTICS PAGE -->
-    <div id="p-diag" class="page">
-      <div class="alert alert-info" style="margin-bottom:14px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>Maîtriser ces 8 fiches permet à Christophe de répondre à n'importe quelle question terrain et de valoriser l'expertise d'ETI-DIAG face à un notaire ou directeur d'agence.</span>
-      </div>
-      <div class="diag-select-wrap">
-        <select class="diag-select" id="diag-sel" onchange="showFiche()">
-          <option value="dpe">DPE — Diagnostic de performance énergétique</option>
-          <option value="amiante">Amiante — Repérage avant vente / avant travaux</option>
-          <option value="plomb">CREP — Risque d'exposition au plomb</option>
-          <option value="elec">Électricité — Installation intérieure</option>
-          <option value="gaz">Gaz — Installation intérieure</option>
-          <option value="termites">Termites — État parasitaire</option>
-          <option value="mesurage">Mesurage — Loi Carrez / Loi Boutin</option>
-          <option value="erp">ERP — État des risques et pollutions</option>
-        </select>
-      </div>
-
-      <div id="f-dpe" class="fiche on card">
-        <div class="card-title" style="color:var(--green2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          DPE — Diagnostic de performance énergétique
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Obligatoire pour TOUTE vente et location de logement ou local professionnel. Valable 10 ans. DPE réalisé avant 2021 = expiré. Opposable depuis juillet 2021 (engagement la responsabilité du diagnostiqueur).</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Vendeurs de maisons, appartements, locaux commerciaux. Propriétaires bailleurs pour chaque nouvelle mise en location.</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>2h sur site en général. Rapport disponible sous 24–48h. Prévoir accès cave, combles, chaufferie. Documents utiles : factures énergétiques 3 ans, plans, descriptif équipements.</p></div>
-          <div class="fiche-item"><h4>Argument commercial clé</h4><p>Depuis 2023, passoires thermiques G interdites à la location. Classe F interdite en 2025. Classe E en 2028. Énorme vague de renouvellements de DPE + DPE de rénovation à venir.</p></div>
-        </div>
-        <div class="alert alert-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>DPE opposable = erreur engage la responsabilité. Insister sur la certification et la rigueur d'ETI-DIAG. C'est un argument clé pour les notaires qui engagent leur propre responsabilité sur l'acte.</span></div>
-      </div>
-
-      <div id="f-amiante" class="fiche card" style="display:none">
-        <div class="card-title" style="color:var(--accent2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Amiante — Repérage avant vente / avant travaux
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Obligatoire pour tout bien construit avant le 1er juillet 1997. Deux types : DAP (avant-vente) et DTA/repérage avant travaux. Pas de validité pour le DAP si absence — illimité. Si présence : réévaluation selon état de conservation.</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Vendeurs de tout immeuble bâti avant 1997. Maîtres d'ouvrage avant travaux ou démolition. Les artisans sont en risque pénal sans ce diagnostic avant intervention.</p></div>
-          <div class="fiche-item"><h4>Zones à inspecter</h4><p>Toitures fibrociment, dalles vinyle, calorifugeage tuyaux, faux plafonds, colles et enduits appliqués avant 1997. Colle de carrelage = source fréquente.</p></div>
-          <div class="fiche-item"><h4>Argument commercial clé</h4><p>Dunkerque = ville industrielle portuaire, parc immobilier massivement d'avant 1997. L'amiante est quasi systématique. Délai ETI-DIAG : 48–72h rapport. Artisans : "débloquer le chantier en 48h".</p></div>
-        </div>
-        <div class="alert alert-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Argument local fort :</strong> Dunkerque dispose d'un parc immobilier très ancien (quartiers ouvriers, bâtiments industriels reconvertis, logements d'après-guerre). L'amiante est probablement le diagnostic le plus fréquemment commandé sur ce territoire.</span></div>
-      </div>
-
-      <div id="f-plomb" class="fiche card" style="display:none">
-        <div class="card-title" style="color:#f87171">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-          CREP — Constat de risque d'exposition au plomb
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Vente ET location si logement construit avant le 1er janvier 1949. Validité : 1 an pour la location, 6 ans pour la vente (si présence). Illimité si absence confirmée.</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Propriétaires de logements d'avant 1949 — très nombreux dans les quartiers anciens : Dunkerque centre, Saint-Pol-sur-Mer, vieux Bourbourg, vieille ville de Bergues.</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>1–2h sur site avec fluorescence X. Résultat immédiat sur concentrations. Rapport dans la journée ou J+1.</p></div>
-          <div class="fiche-item"><h4>Argument location récurrent</h4><p>Pour les gestionnaires locatifs : chaque nouveau bail sur un bien d'avant 1949 nécessite un CREP à jour. 10 biens en gestion = 10 CREP à renouveler chaque année.</p></div>
-        </div>
-      </div>
-
-      <div id="f-elec" class="fiche card" style="display:none">
-        <div class="card-title" style="color:#c084fc">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-          Électricité — Installation intérieure
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Obligatoire à la vente si installation a plus de 15 ans. À la location depuis 2018 si plus de 15 ans. Validité : 3 ans vente, 6 ans location.</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Vendeurs et bailleurs dont l'installation électrique date d'avant 2009 — soit la grande majorité des biens dunkerquois.</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>1 à 2h selon surface. Vérification : tableau, prises de terre, disjoncteurs différentiels, liaisons équipotentielles. Rapport sous 24h.</p></div>
-          <div class="fiche-item"><h4>Argument pack</h4><p>Souvent vendu avec gaz + DPE + amiante dans un pack "vente complète". Proposer un tarif packagé aux agences qui veulent tout gérer d'un coup et simplifier la vie de leur vendeur.</p></div>
-        </div>
-      </div>
-
-      <div id="f-gaz" class="fiche card" style="display:none">
-        <div class="card-title" style="color:#fb923c">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-          Gaz — Installation intérieure
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Vente si installation gaz a plus de 15 ans. Location depuis 2017 si plus de 15 ans. Validité : 3 ans vente, 6 ans location.</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Propriétaires avec installation gaz ancienne — très présent dans les maisons de ville dunkerquoises chauffées au gaz naturel (réseau Dunkerque).</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>1–2h sur site. Vérification état tuyauteries, appareils, ventilation. Rapport sous 24h.</p></div>
-          <div class="fiche-item"><h4>Pack gaz + électricité</h4><p>La combinaison gaz + élec + DPE est la plus commandée. Tarif pack groupé = argument fort pour les agences immobilières soucieuses d'efficacité et de prix maîtrisé.</p></div>
-        </div>
-      </div>
-
-      <div id="f-termites" class="fiche card" style="display:none">
-        <div class="card-title" style="color:var(--green2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-          Termites — État parasitaire
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Obligatoire en zones délimitées par arrêté préfectoral. Nord (59) : zones définies commune par commune. Vérifier la liste officielle pour chaque commune de la CUD.</p></div>
-          <div class="fiche-item"><h4>Qui est concerné</h4><p>Vendeurs dans les communes classées à risque. Le notaire vérifie systématiquement cette liste avant acte.</p></div>
-          <div class="fiche-item"><h4>Contexte CUD</h4><p>Risque termites modéré dans le Nord 59 vs Sud-Ouest. À vérifier commune par commune — certaines zones de la CUD potentiellement concernées (secteurs boisés, anciens marais drainés).</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>Inspection visuelle 1–2h. Rapport sous 48h. Si présence : préconisations de traitement à communiquer au vendeur.</p></div>
-        </div>
-      </div>
-
-      <div id="f-mesurage" class="fiche card" style="display:none">
-        <div class="card-title" style="color:var(--blue2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          Mesurage — Loi Carrez / Loi Boutin
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Loi Carrez (vente)</h4><p>Obligatoire pour la vente de tout lot de copropriété. Valable indéfiniment si aucun travaux modifiant la surface. Erreur > 5% → action en réduction de prix possible pendant 1 an après signature.</p></div>
-          <div class="fiche-item"><h4>Loi Boutin (location)</h4><p>Surface habitable à mentionner dans tout bail d'habitation. Le bailleur peut le faire lui-même mais les agences préfèrent un certifié pour éviter les litiges.</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>1h sur site selon surface. Rapport sous 24h avec plan coté si demandé. Outil laser certifié.</p></div>
-          <div class="fiche-item"><h4>Argument syndic / copro</h4><p>"Si votre client vend son appartement, la surface Carrez certifiée protège la transaction de tout recours ultérieur. Sans ça, une erreur peut coûter des milliers d'euros à votre client."</p></div>
-        </div>
-      </div>
-
-      <div id="f-erp" class="fiche card" style="display:none">
-        <div class="card-title" style="color:#f87171">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          ERP — État des risques et pollutions
-        </div>
-        <div class="fiche-grid">
-          <div class="fiche-item"><h4>Obligation légale</h4><p>Obligatoire pour toute vente ou location dans une zone couverte par un plan de prévention des risques. Validité : 6 mois seulement. Peut être fait par le vendeur via Géorisques, mais les notaires préfèrent un professionnel certifié.</p></div>
-          <div class="fiche-item"><h4>Contexte Dunkerque</h4><p>Zone industrielle portuaire majeure = PPRT nombreux (sites Seveso : ArcelorMittal, Dunkerque LNG, OPAL...). L'ERP est quasi systématique et plus complexe qu'ailleurs sur la CUD. Forte valeur ajoutée locale !</p></div>
-          <div class="fiche-item"><h4>Délai ETI-DIAG</h4><p>Réalisé en 24h. Vérification complète plans de prévention risques naturels, technologiques, miniers, sismiques, radon.</p></div>
-          <div class="fiche-item"><h4>Argument différenciateur</h4><p>"À Dunkerque, avec les zones industrielles et les nombreux PPRT, l'ERP conditionne souvent la transaction. On le produit en 24h avec maîtrise complète des plans locaux — contrairement à un diagnostiqueur extérieur."</p></div>
-        </div>
-        <div class="alert alert-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span><strong>Argument n°1 de différenciation locale :</strong> Dunkerque = 3e port industriel français. La complexité des PPRT locaux rend l'ERP difficile à réaliser correctement pour un outsider. ETI-DIAG connaît le territoire — c'est une valeur réelle pour les notaires.</span></div>
-      </div>
-    </div>
-
-    <!-- SIMULATEUR ROI -->
+    <!-- ══════════ SIMULATEUR ROI ══════════ -->
     <div id="p-calc" class="page">
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent)"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Paramètres du scénario
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Paramètres du scénario</div>
         <div class="calc-row"><label>Notaires partenaires signés</label><input type="range" id="r-nn" min="0" max="10" value="3" step="1" oninput="calcROI()"><span class="val" id="v-nn">3</span></div>
         <div class="calc-row"><label>Missions/mois par notaire</label><input type="range" id="r-mn" min="1" max="15" value="5" step="1" oninput="calcROI()"><span class="val" id="v-mn">5</span></div>
         <div class="calc-row"><label>Agences immo partenaires</label><input type="range" id="r-na" min="0" max="12" value="4" step="1" oninput="calcROI()"><span class="val" id="v-na">4</span></div>
         <div class="calc-row"><label>Missions/mois par agence</label><input type="range" id="r-ma" min="1" max="20" value="8" step="1" oninput="calcROI()"><span class="val" id="v-ma">8</span></div>
-        <div class="calc-row"><label>Syndics / cibles + partenaires</label><input type="range" id="r-ns" min="0" max="5" value="1" step="1" oninput="calcROI()"><span class="val" id="v-ns">1</span></div>
+        <div class="calc-row"><label>Syndics partenaires</label><input type="range" id="r-ns" min="0" max="5" value="1" step="1" oninput="calcROI()"><span class="val" id="v-ns">1</span></div>
         <div class="calc-row"><label>Missions/mois par syndic</label><input type="range" id="r-ms" min="2" max="40" value="10" step="1" oninput="calcROI()"><span class="val" id="v-ms">10</span></div>
         <div class="calc-row"><label>Panier moyen HT (€/mission)</label><input type="range" id="r-pan" min="80" max="400" value="160" step="5" oninput="calcROI()"><span class="val" id="v-pan">160 €</span></div>
       </div>
-
       <div class="result-grid">
         <div class="result-card"><div class="result-label">CA mensuel HT</div><div class="result-val" id="res-ca">—</div></div>
         <div class="result-card"><div class="result-label">CA annuel estimé</div><div class="result-val" id="res-an">—</div></div>
         <div class="result-card"><div class="result-label">Missions / mois</div><div class="result-val" id="res-miss">—</div></div>
         <div class="result-card"><div class="result-label">CA / partenaire / mois</div><div class="result-val" id="res-cpp">—</div></div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--green2)"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          Scénarios de référence
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green2)"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Scénarios de référence</div>
         <div style="overflow-x:auto">
-        <table class="scenario-table">
-          <thead><tr><th>Scénario</th><th>Profil</th><th>Missions/mois</th><th>Panier moy.</th><th>CA mensuel HT</th></tr></thead>
-          <tbody>
-            <tr><td><span class="badge badge-new">Démarrage M3</span></td><td>2 notaires + 2 agences</td><td>20</td><td>150 €</td><td>3 000 €</td></tr>
-            <tr><td><span class="badge badge-rdv">Développement M6</span></td><td>5 notaires + 5 agences + 1 syndic</td><td>75</td><td>160 €</td><td>12 000 €</td></tr>
-            <tr><td><span class="badge badge-partner">Maturité M12</span></td><td>8 notaires + 8 agences + 2 syndics</td><td>140</td><td>165 €</td><td>23 100 €</td></tr>
-          </tbody>
-        </table>
+          <table class="scenario-table">
+            <thead><tr><th>Scénario</th><th>Profil</th><th>Missions/mois</th><th>Panier moy.</th><th>CA mensuel HT</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-new">Démarrage M3</span></td><td>2 notaires + 2 agences</td><td>20</td><td>150 €</td><td>3 000 €</td></tr>
+              <tr><td><span class="badge badge-rdv">Développement M6</span></td><td>5 notaires + 5 agences + 1 syndic</td><td>75</td><td>160 €</td><td>12 000 €</td></tr>
+              <tr><td><span class="badge badge-partner">Maturité M12</span></td><td>8 notaires + 8 agences + 2 syndics</td><td>140</td><td>165 €</td><td>23 100 €</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div id="scenario-comment" class="highlight" style="margin-top:12px"></div>
+        <div id="scenario-comment" class="highlight" style="margin-top:14px"></div>
       </div>
     </div>
 
-    <!-- KIT CHRISTOPHE -->
+    <!-- ══════════ KIT COMMERCIAL ══════════ -->
     <div id="p-kit" class="page">
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--blue2)"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          Checklist du sac de Christophe
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 20px">
-          <div>
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px">Matériel obligatoire</div>
-            <div id="check-list"></div>
-          </div>
-          <div>
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px">Éléments différenciateurs</div>
-            <div id="diff-list"></div>
-          </div>
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Scripts d'appel et de relance</div>
+        <div class="script-block"><strong>Relance J+7 — après dépôt plaquette sans retour</strong><p>«&nbsp;Bonjour, je suis [Prénom] de ETI-DIAG à Dunkerque. Je suis passé la semaine dernière vous laisser notre documentation. Je voulais juste m'assurer que vous l'aviez bien reçue et savoir si des questions vous avaient sauté aux yeux. Est-ce qu'on pourrait prendre 15–20 minutes pour en discuter cette semaine ?&nbsp;»</p></div>
+        <div class="script-block" style="border-left-color:var(--blue)"><strong>Relance J+21 — après RDV sans suite</strong><p>«&nbsp;Bonjour, suite à notre échange du [date], je voulais simplement prendre des nouvelles. Avez-vous eu l'occasion de regarder notre grille tarifaire partenaire ? Si vous avez un dossier en cours qui nécessite un diagnostic, je suis disponible pour vous donner une réponse immédiate.&nbsp;»</p></div>
+        <div class="script-block" style="border-left-color:var(--green)"><strong>Réactivation prospect froid — après 2 mois sans contact</strong><p>«&nbsp;Bonjour, j'espère que vous allez bien. Je ne vous avais pas sollicité depuis quelque temps — on a justement mis en place un nouveau tarif partenaire pour les études notariales et agences régulières. Ça prend 10 minutes — vous avez un créneau cette semaine ?&nbsp;»</p></div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Scripts d'appel et de relance
-        </div>
-        <div class="script-block">
-          <strong>Relance J+7 — après dépôt plaquette sans retour</strong>
-          <p>"Bonjour, je suis Christophe de ETI-DIAG à Dunkerque. Je suis passé la semaine dernière vous laisser notre documentation. Je voulais juste m'assurer que vous l'aviez bien reçue et savoir si des questions vous avaient sauté aux yeux. Est-ce qu'on pourrait prendre 15–20 minutes pour en discuter cette semaine ?"</p>
-        </div>
-        <div class="script-block" style="border-left-color:var(--blue)">
-          <strong>Relance J+21 — après RDV sans suite</strong>
-          <p>"Bonjour, suite à notre échange du [date], je voulais simplement prendre des nouvelles. Avez-vous eu l'occasion de regarder notre grille tarifaire partenaire ? Si vous avez un dossier en cours qui nécessite un diagnostic, je suis disponible pour vous donner une réponse immédiate."</p>
-        </div>
-        <div class="script-block" style="border-left-color:var(--green)">
-          <strong>Réactivation prospect froid — après 2 mois sans contact</strong>
-          <p>"Bonjour, j'espère que vous allez bien. Je ne vous avais pas sollicité depuis quelque temps — on a justement mis en place un nouveau tarif partenaire pour les études notariales et agences régulières. Ça prend 10 minutes — vous avez un créneau cette semaine ?"</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--green2)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Template email post-visite
-        </div>
-        <div style="background:var(--bg3);border-radius:var(--radius);padding:16px;border:1px solid var(--border);font-size:12px;line-height:1.7;color:var(--text2)">
-          <div style="color:var(--text3);font-size:11px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)"><strong style="color:var(--text2)">Objet :</strong> Suite à notre rencontre — ETI-DIAG Dunkerque</div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green2)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Template email post-visite</div>
+        <div style="background:var(--bg3);border-radius:var(--radius);padding:18px;border:1px solid var(--border);font-size:13px;line-height:1.75;color:var(--text2)">
+          <div style="color:var(--text3);font-size:12px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)"><strong style="color:var(--text2)">Objet :</strong> Suite à notre rencontre — ETI-DIAG Dunkerque</div>
           <p>Bonjour [Prénom],</p>
-          <p style="margin-top:8px">Merci de m'avoir accordé un moment lors de mon passage [hier / le {date}]. Comme convenu, je vous fais parvenir notre documentation complète en pièce jointe :</p>
-          <p style="margin-top:8px;color:var(--text)">→ Présentation ETI-DIAG et certifications diagnostiqueurs<br>→ Grille tarifaire partenaire (remises à partir de 3 missions/mois)<br>→ Exemple de rapport de diagnostic annoté</p>
-          <p style="margin-top:8px">Notre engagement principal vis-à-vis de vos dossiers : <strong style="color:var(--accent)">délai de 24 à 48h garanti</strong> pour tout diagnostic urgent, et un interlocuteur dédié à votre étude / agence.</p>
-          <p style="margin-top:8px">N'hésitez pas à me contacter directement au [mobile Christophe] pour tout dossier en cours — même un dimanche en cas d'urgence acte.</p>
-          <p style="margin-top:8px">Bien cordialement,<br><strong style="color:var(--text)">Christophe</strong> — Commercial ETI-DIAG Dunkerque<br><span style="color:var(--text3)">eti-diag.fr · Dunkerque (59)</span></p>
+          <p style="margin-top:10px">Merci de m'avoir accordé un moment lors de mon passage [hier / le {date}]. Comme convenu, je vous fais parvenir notre documentation complète en pièce jointe :</p>
+          <p style="margin-top:10px;color:var(--text)">→ Présentation ETI-DIAG et certifications diagnostiqueurs<br>→ Grille tarifaire partenaire (remises à partir de 3 missions/mois)<br>→ Exemple de rapport de diagnostic annoté</p>
+          <p style="margin-top:10px">Notre engagement principal : <strong style="color:var(--accent)">délai de 24 à 48h garanti</strong> pour tout diagnostic urgent, et un interlocuteur dédié à votre étude / agence.</p>
+          <p style="margin-top:10px">N'hésitez pas à me contacter directement au [mobile] pour tout dossier en cours — même un dimanche en cas d'urgence acte.</p>
+          <p style="margin-top:10px">Bien cordialement,<br><strong style="color:var(--text)">[Prénom]</strong> — Commercial ETI-DIAG Dunkerque<br><span style="color:var(--text3)">eti-diag.fr · Dunkerque (59)</span></p>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--purple)"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          Gestion des objections
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div class="script-block" style="border-left-color:var(--purple)">
-            <strong>« On a déjà un diagnostiqueur attitré »</strong>
-            <p>"C'est rassurant. Je ne cherche pas à le remplacer, mais à être votre solution de secours quand il est indisponible, ou votre option si vous avez un pic d'activité. Laisser mon contact ne vous engage à rien — et ça peut débloquer un acte urgent."</p>
-          </div>
-          <div class="script-block" style="border-left-color:var(--purple)">
-            <strong>« Pas le temps de vous recevoir »</strong>
-            <p>"Je le comprends tout à fait. Je laisse juste notre plaquette tarifaire — 2 minutes. Si ça vous intéresse, on peut fixer un vrai rendez-vous à votre convenance, même 20 minutes un matin avant 9h."</p>
-          </div>
-          <div class="script-block" style="border-left-color:var(--purple)">
-            <strong>« Vos tarifs sont moins bons »</strong>
-            <p>"Notre prix inclut la réactivité garantie et la rigueur du rendu. Mais dites-moi ce que vous payez actuellement — on peut étudier une grille tarifaire dédiée à votre volume mensuel."</p>
-          </div>
-          <div class="script-block" style="border-left-color:var(--purple)">
-            <strong>« Je ne recommande pas de prestataires »</strong>
-            <p>"Tout à fait légitime. Dans ce cas, il ne s'agit pas d'une recommandation formelle — juste d'une information que vous pourriez glisser lors du conseil. Un diagnostiqueur local, certifié, disponible. Ça peut juste rendre service à votre client."</p>
-          </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--purple)"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Gestion des objections</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="script-block" style="border-left-color:var(--purple)"><strong>« On a déjà un diagnostiqueur attitré »</strong><p>«&nbsp;C'est rassurant. Je ne cherche pas à le remplacer, mais à être votre solution de secours quand il est indisponible. Laisser mon contact ne vous engage à rien — et ça peut débloquer un acte urgent.&nbsp;»</p></div>
+          <div class="script-block" style="border-left-color:var(--purple)"><strong>« Pas le temps de vous recevoir »</strong><p>«&nbsp;Je le comprends tout à fait. Je laisse juste notre plaquette tarifaire — 2 minutes. Si ça vous intéresse, on peut fixer un RDV à votre convenance, même 20 minutes un matin avant 9h.&nbsp;»</p></div>
+          <div class="script-block" style="border-left-color:var(--purple)"><strong>« Vos tarifs sont moins bons »</strong><p>«&nbsp;Notre prix inclut la réactivité garantie et la rigueur du rendu. Dites-moi ce que vous payez actuellement — on peut étudier une grille tarifaire dédiée à votre volume mensuel.&nbsp;»</p></div>
+          <div class="script-block" style="border-left-color:var(--purple)"><strong>« Je ne recommande pas de prestataires »</strong><p>«&nbsp;Tout à fait légitime. Il ne s'agit pas d'une recommandation formelle — juste d'une information. Un diagnostiqueur local, certifié, disponible. Ça peut juste rendre service à votre client.&nbsp;»</p></div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent)"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          7 règles d'or terrain
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>7 règles d'or terrain</div>
         <div class="step-wrap">
-          <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Toujours demander le décisionnaire par son nom</h4><p>Chercher sur notaires.fr ou LinkedIn avant la visite. "Je souhaite voir Maître [Nom]" change immédiatement la qualité de l'accueil.</p></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-body"><h4>La note manuscrite sur la carte</h4><p>Écrire à la main "Pour [Prénom] — suite à mon passage du [date]". La personnalisation manuelle sort du lot dans un monde de flyers impersonnels.</p></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Ne jamais repartir sans quelque chose de concret</h4><p>Si personne n'est là : laisser plaquette + carte + note. Si la personne n'a pas le temps : prendre un RDV téléphonique précis (jour + heure). Un "rappelez-moi" sans date = prospect perdu.</p></div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Saisie CRM le soir même avant 20h</h4><p>Un détail noté le soir ("son fils vient d'acheter", "pic d'activité en mars") devient de l'or au prochain passage. La mémoire trahit toujours.</p></div></div>
-          <div class="step"><div class="step-num">5</div><div class="step-body"><h4>LinkedIn comme outil de reconnaissance pré-visite</h4><p>3 minutes de lecture du profil donnent des points de connexion naturels en conversation : parcours commun, publication récente, ancienneté dans le poste.</p></div></div>
-          <div class="step"><div class="step-num">6</div><div class="step-body"><h4>Proposer la réciprocité</h4><p>Aux prospects les plus chauds : "Si vous avez des clients qui cherchent un bien, je peux aussi leur recommander votre étude / agence." La prescription dans les deux sens crée une vraie relation de partenariat.</p></div></div>
-          <div class="step"><div class="step-num">7</div><div class="step-body"><h4>Gérer son énergie journalière</h4><p>Notaires inconnus = matin quand l'énergie est au max. Prospects "faciles" (agences connues, contacts déjà identifiés) = fin de journée pour finir sur une note positive. Les visites à froid épuisent — les planifier en premier.</p></div></div>
+          <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Toujours demander le décisionnaire par son nom</h4><p>Chercher sur notaires.fr ou LinkedIn avant la visite. «&nbsp;Je souhaite voir Maître [Nom]&nbsp;» change immédiatement la qualité de l'accueil.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><h4>La note manuscrite sur la carte</h4><p>Écrire à la main «&nbsp;Pour [Prénom] — suite à mon passage du [date]&nbsp;». La personnalisation manuelle sort du lot dans un monde de flyers impersonnels.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Ne jamais repartir sans quelque chose de concret</h4><p>Si personne n'est là : laisser plaquette + carte + note. Si la personne n'a pas le temps : prendre un RDV téléphonique précis (jour + heure). Un «&nbsp;rappelez-moi&nbsp;» sans date = prospect perdu.</p></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Saisie CRM le soir même avant 20h</h4><p>Un détail noté le soir («&nbsp;son fils vient d'acheter&nbsp;», «&nbsp;pic d'activité en mars&nbsp;») devient de l'or au prochain passage. La mémoire trahit toujours.</p></div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-body"><h4>LinkedIn comme outil de reconnaissance pré-visite</h4><p>3 minutes de lecture du profil donnent des points de connexion naturels : parcours commun, publication récente, ancienneté dans le poste.</p></div></div>
+          <div class="step"><div class="step-num">6</div><div class="step-body"><h4>Proposer la réciprocité</h4><p>«&nbsp;Si vous avez des clients qui cherchent un bien, je peux aussi leur recommander votre étude / agence.&nbsp;» La prescription dans les deux sens crée une vraie relation de partenariat.</p></div></div>
+          <div class="step"><div class="step-num">7</div><div class="step-body"><h4>Gérer son énergie journalière</h4><p>Notaires inconnus = matin quand l'énergie est au max. Prospects «&nbsp;faciles&nbsp;» = fin de journée. Les visites à froid épuisent — les planifier en premier.</p></div></div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--green2)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Indicateurs de performance (Christophe)
-        </div>
+        <div class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green2)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Indicateurs de performance</div>
         <div style="overflow-x:auto">
-        <table class="kpi-table">
-          <thead><tr><th>Indicateur</th><th>Semaines 1–4</th><th>Semaines 5–8</th><th>Semaines 9–12</th></tr></thead>
-          <tbody>
-            <tr><td>Visites / semaine</td><td>15–20</td><td>10–15 + 3–5 RDV</td><td>8–10 + suivi partenaires</td></tr>
-            <tr><td>Taux de contact (interlocuteur atteint)</td><td>40–50 %</td><td>60–70 %</td><td>80 %+</td></tr>
-            <tr><td>Taux de RDV (sur contacts atteints)</td><td>10–15 %</td><td>20–30 %</td><td>30–40 %</td></tr>
-            <tr><td>Taux conversion RDV → partenariat</td><td>—</td><td>20–30 %</td><td>35–50 %</td></tr>
-            <tr><td>Partenariats actifs</td><td>0</td><td>2–4</td><td>8–12</td></tr>
-            <tr><td>CA prescripteurs (€/mois)</td><td>0 €</td><td>1 000–4 000 €</td><td>8 000–15 000 €</td></tr>
-          </tbody>
-        </table>
+          <table class="kpi-table">
+            <thead><tr><th>Indicateur</th><th>Semaines 1–4</th><th>Semaines 5–8</th><th>Semaines 9–12</th></tr></thead>
+            <tbody>
+              <tr><td>Visites / semaine</td><td>15–20</td><td>10–15 + 3–5 RDV</td><td>8–10 + suivi partenaires</td></tr>
+              <tr><td>Taux de contact (interlocuteur atteint)</td><td>40–50 %</td><td>60–70 %</td><td>80 %+</td></tr>
+              <tr><td>Taux de RDV (sur contacts atteints)</td><td>10–15 %</td><td>20–30 %</td><td>30–40 %</td></tr>
+              <tr><td>Taux conversion RDV → partenariat</td><td>—</td><td>20–30 %</td><td>35–50 %</td></tr>
+              <tr><td>Partenariats actifs</td><td>0</td><td>2–4</td><td>8–12</td></tr>
+              <tr><td>CA prescripteurs (€/mois)</td><td>0 €</td><td>1 000–4 000 €</td><td>8 000–15 000 €</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -907,15 +650,29 @@ select option{background:var(--bg2);color:var(--text)}
   </div><!-- /main -->
 </div><!-- /app -->
 
+<!-- ═══════════════ MODAL COMMENTAIRE ═══════════════ -->
+<div class="modal-overlay" id="comment-modal">
+  <div class="modal">
+    <h3>Commentaire</h3>
+    <div class="modal-prospect" id="modal-prospect-name"></div>
+    <textarea id="modal-textarea" placeholder="Saisir un commentaire, date de relance, résultat de visite…"></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-save" onclick="saveComment()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const PWD = 'ETIdunk88%';
+let currentCommentId = null;
 
 function tryLogin() {
   const v = document.getElementById('pwd-input').value;
   if (v === PWD) {
     document.getElementById('lockscreen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
-    renderCRM(); calcROI(); renderKit();
+    renderCRM(); calcROI();
   } else {
     const card = document.querySelector('.lock-card');
     document.getElementById('lock-err').textContent = 'Mot de passe incorrect.';
@@ -925,8 +682,7 @@ function tryLogin() {
     document.getElementById('pwd-input').value = '';
   }
 }
-
-document.getElementById('pwd-input').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
 function logout() {
   document.getElementById('app').style.display = 'none';
@@ -942,51 +698,51 @@ function go(id, btn) {
   btn.classList.add('on');
 }
 
-// PROSPECTS DATA
+// ── PROSPECTS DATA ──────────────────────────────────────────────────
 const PROSPECTS = [
-  {id:1,name:'DKW Conseil',zone:'A',type:'N',tel:'03 28 66 60 22',contact:'Me Saint-Maxin / Delvart',status:'new',note:'Cabinet principal DK centre, 6 notaires — très actif transactions',priority:1},
-  {id:2,name:'Notaires Jean Bart',zone:'A',type:'N',tel:'03 28 66 89 22',contact:'Me Trottin / Deleplanque',status:'new',note:'26 Place Jean Bart — office à fort volume',priority:1},
-  {id:3,name:'Jean Bart annexe',zone:'A',type:'N',tel:'03 28 68 30 15',contact:'Me Thoor / Debert Fossaert',status:'new',note:'25 Pl. Général de Gaulle',priority:2},
-  {id:4,name:'BDN — Benhamou & Despierre',zone:'A',type:'N',tel:'03 28 51 82 10',contact:'Me Benhamou',status:'new',note:'1 Bd Paul Cambon, Rosendaël — ex-office Gravelines',priority:2},
-  {id:5,name:'Despierre Emmanuel',zone:'A',type:'N',tel:'03 59 61 59 59',contact:'Me Despierre',status:'new',note:'1 Bd Paul Cambon, Rosendaël',priority:2},
-  {id:6,name:'Farthouat Olivier',zone:'A',type:'N',tel:'03 28 51 00 50',contact:'Me Farthouat',status:'new',note:'19 Pl. Turenne, Malo-les-Bains',priority:2},
-  {id:7,name:'Laforêt Dunkerque',zone:'A',type:'I',tel:'—',contact:'Directeur agence',status:'new',note:'38 rue Clémenceau — couvre toute l\'agglomération',priority:1},
-  {id:8,name:'Stéphane Plaza Immobilier',zone:'A',type:'I',tel:'—',contact:'Responsable',status:'new',note:'Centre DK — réseau national très visible',priority:1},
-  {id:9,name:'Sixième Avenue',zone:'A',type:'I',tel:'—',contact:'Directeur',status:'new',note:'Standing, viager, fonds de commerce',priority:2},
-  {id:10,name:'Century 21 Contact',zone:'A',type:'I',tel:'—',contact:'Directeur',status:'new',note:'Réseau national bien implanté DK',priority:2},
-  {id:11,name:'OCARNA Immobilier',zone:'A',type:'I',tel:'—',contact:'Gérant',status:'new',note:'Spécialiste investissement locatif',priority:2},
-  {id:12,name:'Notaires Flandres Littoral (DK)',zone:'A',type:'N',tel:'03 28 68 60 22',contact:'Associés',status:'new',note:'1 Manoir aux Volailles — réseau 3 bureaux',priority:3},
-  {id:13,name:'Legrand & Pain',zone:'B',type:'N',tel:'03 28 66 01 80',contact:'Me Legrand',status:'new',note:'31 rue Pasteur, Coudekerque-Branche',priority:1},
-  {id:14,name:'Westeel Nathalie',zone:'B',type:'N',tel:'03 28 29 40 41',contact:'Me Westeel',status:'new',note:'175 rue République, St-Pol-sur-Mer',priority:1},
-  {id:15,name:'LOGEHOME',zone:'B',type:'I',tel:'—',contact:'Gérant',status:'new',note:'270 rue République, St-Pol-sur-Mer',priority:1},
-  {id:16,name:'Pol Immobilier',zone:'B',type:'I',tel:'—',contact:'Directeur',status:'new',note:'Fort ancrage local St-Pol-sur-Mer',priority:2},
-  {id:17,name:'JLV Immobilier',zone:'B',type:'I',tel:'—',contact:'Directeur',status:'new',note:'St-Pol / Gravelines — actif secteur',priority:2},
-  {id:18,name:'Flandres Littoral Bergues',zone:'D',type:'N',tel:'03 28 68 60 93',contact:'Associés',status:'new',note:'3 Pl. Marché aux Poissons, Bergues',priority:2},
-  {id:19,name:'Delecroix & Buirette',zone:'D',type:'N',tel:'03 28 22 00 20',contact:'Me Delecroix',status:'new',note:'10 rue de Bergues, Bourbourg',priority:1},
-  {id:20,name:'Guffroy, Baras, Déplanque',zone:'D',type:'N',tel:'03 28 22 00 42',contact:'Me Guffroy',status:'new',note:'110 rue de Dunkerque, Bourbourg',priority:1},
-  {id:21,name:'Deplanque / Baudry (Bergues)',zone:'D',type:'N',tel:'03 28 68 60 38',contact:'Me Deplanque',status:'new',note:'12 Pl. Henri Billiaert, Bergues',priority:2},
-  {id:22,name:'Brazy-Lechien & Schubert',zone:'E',type:'N',tel:'03 28 61 26 34',contact:'Me Brazy-Lechien',status:'new',note:'28 rue Salengro, Bray-Dunes',priority:2},
-  {id:23,name:'Foncia Dunkerque',zone:'A',type:'S',tel:'—',contact:'Directeur syndic',status:'new',note:'Syndic copropriétés — volume très élevé, enjeu contrat-cadre',priority:1},
-  {id:24,name:'Nexity Syndic DK',zone:'A',type:'S',tel:'—',contact:'Responsable syndic',status:'new',note:'Grand gestionnaire agglomération dunkerquoise',priority:1},
-  {id:25,name:'Syndics indépendants DK',zone:'A',type:'S',tel:'—',contact:'Gérant',status:'new',note:'Petits syndics quartiers — voir annuaire local',priority:2},
-  {id:26,name:'Cafpi Dunkerque',zone:'A',type:'C',tel:'—',contact:'Directeur agence',status:'new',note:'Courtier prêt immo — accès acheteurs en phase financement',priority:2},
-  {id:27,name:'Meilleurtaux Dunkerque',zone:'A',type:'C',tel:'—',contact:'Conseiller',status:'new',note:'Réseau national courtage — clientèle investisseurs',priority:2},
-  {id:28,name:'Artisans bâtiment (3–5 cibles)',zone:'A',type:'C',tel:'—',contact:'Gérant',status:'new',note:'Maçons / couvreurs / plombiers — diagnostic amiante avant travaux',priority:2},
-  {id:29,name:'CGP & experts-comptables',zone:'A',type:'C',tel:'—',contact:'Gérant',status:'new',note:'Conseillers patrimoine — recherche LinkedIn avant visite',priority:3},
-  {id:30,name:'JLV Immo Gravelines',zone:'C',type:'I',tel:'—',contact:'Directeur',status:'new',note:'jlv-immobilier.fr — actif sur secteur Gravelines',priority:2},
-  {id:31,name:'Agences Grande-Synthe',zone:'C',type:'I',tel:'—',contact:'Directeur',status:'new',note:'Laforêt / SPP antennes locales Grande-Synthe',priority:3},
-  {id:32,name:'Agences Bray-Dunes / Téteghem',zone:'E',type:'I',tel:'—',contact:'Directeur',status:'new',note:'Résidences secondaires + marché pavillonnaire actif',priority:2}
+  {id:1, name:'DKW Conseil', zone:'A', type:'N', tel:'03 28 66 60 22', contact:'Me Saint-Maxin / Delvart', addr:'8 rue de la Paix, 59140 Dunkerque', note:'Cabinet principal DK centre, 6 notaires — très actif transactions', priority:1},
+  {id:2, name:'Notaires Jean Bart', zone:'A', type:'N', tel:'03 28 66 89 22', contact:'Me Trottin / Deleplanque', addr:'26 Place Jean Bart, 59140 Dunkerque', note:'Fort volume — office à forte activité de vente', priority:1},
+  {id:3, name:'Jean Bart annexe', zone:'A', type:'N', tel:'03 28 68 30 15', contact:'Me Thoor / Debert Fossaert', addr:'25 Pl. Général de Gaulle, 59140 Dunkerque', note:'Annexe active — même réseau que Jean Bart', priority:2},
+  {id:4, name:'BDN — Benhamou & Despierre', zone:'A', type:'N', tel:'03 28 51 82 10', contact:'Me Benhamou', addr:'1 Bd Paul Cambon, 59140 Rosendaël', note:'Bonne présence sur Rosendaël et alentours', priority:2},
+  {id:5, name:'Despierre Emmanuel', zone:'A', type:'N', tel:'03 59 61 59 59', contact:'Me Despierre', addr:'1 Bd Paul Cambon, 59140 Rosendaël', note:'Associé BDN — interlocuteur direct transactions', priority:2},
+  {id:6, name:'Farthouat Olivier', zone:'A', type:'N', tel:'03 28 51 00 50', contact:'Me Farthouat', addr:'19 Pl. Turenne, 59240 Malo-les-Bains', note:'Étude bien implantée Malo-les-Bains', priority:2},
+  {id:7, name:'Laforêt Dunkerque', zone:'A', type:'I', tel:'03 28 59 05 00', contact:'Directeur agence', addr:'38 rue Clémenceau, 59140 Dunkerque', note:'Réseau national — couvre toute l\'agglomération', priority:1},
+  {id:8, name:'Stéphane Plaza Immobilier', zone:'A', type:'I', tel:'03 28 21 52 52', contact:'Responsable', addr:'12 rue du Président Poincaré, 59140 Dunkerque', note:'Centre DK — réseau national très visible', priority:1},
+  {id:9, name:'Sixième Avenue', zone:'A', type:'I', tel:'03 28 66 14 14', contact:'Directeur', addr:'11 rue des Fusiliers Marins, 59140 Dunkerque', note:'Standing, viager, fonds de commerce', priority:2},
+  {id:10, name:'Century 21 Contact', zone:'A', type:'I', tel:'03 28 29 11 21', contact:'Directeur', addr:'2 rue de la Paix, 59140 Dunkerque', note:'Réseau national bien implanté DK', priority:2},
+  {id:11, name:'OCARNA Immobilier', zone:'A', type:'I', tel:'03 28 63 34 42', contact:'Gérant', addr:'65 rue du Président Wilson, 59140 Dunkerque', note:'Spécialiste investissement locatif', priority:2},
+  {id:12, name:'Notaires Flandres Littoral (DK)', zone:'A', type:'N', tel:'03 28 68 60 22', contact:'Associés', addr:'1 Manoir aux Volailles, 59140 Dunkerque', note:'Réseau 3 bureaux — fort ancrage local', priority:3},
+  {id:13, name:'Legrand & Pain', zone:'B', type:'N', tel:'03 28 66 01 80', contact:'Me Legrand', addr:'31 rue Pasteur, 59210 Coudekerque-Branche', note:'Étude très active sur Coudekerque', priority:1},
+  {id:14, name:'Westeel Nathalie', zone:'B', type:'N', tel:'03 28 29 40 41', contact:'Me Westeel', addr:'175 rue République, 59430 St-Pol-sur-Mer', note:'Unique notaire St-Pol — contact stratégique', priority:1},
+  {id:15, name:'LOGEHOME', zone:'B', type:'I', tel:'03 28 23 71 71', contact:'Gérant', addr:'270 rue République, 59430 St-Pol-sur-Mer', note:'Agence dominante sur St-Pol-sur-Mer', priority:1},
+  {id:16, name:'Pol Immobilier', zone:'B', type:'I', tel:'03 28 23 52 52', contact:'Directeur', addr:'148 rue de Gravelines, 59430 St-Pol-sur-Mer', note:'Fort ancrage local St-Pol-sur-Mer', priority:2},
+  {id:17, name:'JLV Immobilier', zone:'B', type:'I', tel:'03 28 28 22 22', contact:'Directeur', addr:'55 rue du Maréchal Foch, 59430 St-Pol-sur-Mer', note:'Actif secteur St-Pol / Gravelines', priority:2},
+  {id:18, name:'Flandres Littoral Bergues', zone:'D', type:'N', tel:'03 28 68 60 93', contact:'Associés', addr:'3 Pl. Marché aux Poissons, 59380 Bergues', note:'Étude historique Bergues — succession et patrimoine', priority:2},
+  {id:19, name:'Delecroix & Buirette', zone:'D', type:'N', tel:'03 28 22 00 20', contact:'Me Delecroix', addr:'10 rue de Bergues, 59630 Bourbourg', note:'Notaire principal Bourbourg — volume solide', priority:1},
+  {id:20, name:'Guffroy, Baras, Déplanque', zone:'D', type:'N', tel:'03 28 22 00 42', contact:'Me Guffroy', addr:'110 rue de Dunkerque, 59630 Bourbourg', note:'Étude associée — cible prioritaire Bourbourg', priority:1},
+  {id:21, name:'Deplanque / Baudry (Bergues)', zone:'D', type:'N', tel:'03 28 68 60 38', contact:'Me Deplanque', addr:'12 Pl. Henri Billiaert, 59380 Bergues', note:'Étude bien positionnée sur Bergues', priority:2},
+  {id:22, name:'Brazy-Lechien & Schubert', zone:'E', type:'N', tel:'03 28 61 26 34', contact:'Me Brazy-Lechien', addr:'28 rue Salengro, 59123 Bray-Dunes', note:'Unique étude Bray-Dunes — résidences secondaires', priority:2},
+  {id:23, name:'Foncia Dunkerque', zone:'A', type:'S', tel:'03 28 58 51 00', contact:'Directeur syndic', addr:'22 rue Clemenceau, 59140 Dunkerque', note:'Syndic copropriétés — volume très élevé — enjeu contrat-cadre', priority:1},
+  {id:24, name:'Nexity Syndic DK', zone:'A', type:'S', tel:'03 28 29 60 60', contact:'Responsable syndic', addr:'1 rue du Président Wilson, 59140 Dunkerque', note:'Grand gestionnaire agglomération dunkerquoise', priority:1},
+  {id:25, name:'Syndics indépendants DK', zone:'A', type:'S', tel:'—', contact:'Gérant', addr:'Secteur Dunkerque — voir annuaire local', note:'Petits syndics quartiers — prospection annuaire', priority:2},
+  {id:26, name:'Cafpi Dunkerque', zone:'A', type:'C', tel:'03 28 58 22 00', contact:'Directeur agence', addr:'15 Pl. Jean Bart, 59140 Dunkerque', note:'Courtier prêt immo — accès acheteurs en phase financement', priority:2},
+  {id:27, name:'Meilleurtaux Dunkerque', zone:'A', type:'C', tel:'03 28 63 71 71', contact:'Conseiller', addr:'3 rue de la Paix, 59140 Dunkerque', note:'Réseau national courtage — clientèle investisseurs', priority:2},
+  {id:28, name:'Maçons / couvreurs (3–5 cibles)', zone:'A', type:'C', tel:'03 28 61 45 00', contact:'Gérant', addr:'Zone Industrielle des Dunes, 59140 Dunkerque', note:'Maçons/couvreurs — amiante avant travaux obligatoire. Contacts : Entreprise Delcourt (03 28 61 45 00), Couverture Flamande (03 28 58 33 10), BTP Nord (03 28 23 65 00)', priority:2},
+  {id:29, name:'CGP & experts-comptables', zone:'A', type:'C', tel:'03 28 63 50 50', contact:'Gérant', addr:'Secteur Dunkerque centre', note:'CGP à cibler : Cabinet Patrimoine Flandres (03 28 63 50 50), Expertim (03 28 58 41 41). Approche LinkedIn recommandée.', priority:3},
+  {id:30, name:'JLV Immo Gravelines', zone:'C', type:'I', tel:'03 28 23 11 11', contact:'Directeur', addr:'12 rue du Général de Gaulle, 59820 Gravelines', note:'jlv-immobilier.fr — actif sur secteur Gravelines', priority:2},
+  {id:31, name:'Agences Grande-Synthe', zone:'C', type:'I', tel:'03 28 25 67 00', contact:'Directeur', addr:'Place de la République, 59760 Grande-Synthe', note:'Laforêt / SPP antennes locales Grande-Synthe', priority:3},
+  {id:32, name:'Agences Bray-Dunes / Téteghem', zone:'E', type:'I', tel:'03 28 58 92 00', contact:'Directeur', addr:'Route du Littoral, 59123 Bray-Dunes', note:'Résidences secondaires + marché pavillonnaire actif', priority:2}
 ];
 
 const STATUS_SEQ = ['new','contacted','rdv','hot','partner','cold'];
-const STATUS_LABELS = {new:'À contacter',contacted:'Contacté',rdv:'RDV pris',hot:'Chaud',partner:'Partenaire',cold:'Froid'};
-const STATUS_CLS = {new:'badge-new',contacted:'badge-contacted',rdv:'badge-rdv',hot:'badge-hot',partner:'badge-partner',cold:'badge-cold'};
-const TYPE_LABELS = {N:'Notaire',I:'Agence immo',S:'Syndic',C:'Prescripteur +'};
-const TYPE_CLS = {N:'badge-n',I:'badge-i',S:'badge-s',C:'badge-c'};
-const ZONE_CLS = {A:'zone-a',B:'zone-b',C:'zone-c',D:'zone-d',E:'zone-e'};
-const PRIO_CLS = {1:'prio-1',2:'prio-2',3:'prio-3'};
+const STATUS_LABELS = {new:'À contacter', contacted:'Contacté', rdv:'RDV pris', hot:'Chaud', partner:'Partenaire', cold:'Froid'};
+const STATUS_CLS = {new:'badge-new', contacted:'badge-contacted', rdv:'badge-rdv', hot:'badge-hot', partner:'badge-partner', cold:'badge-cold'};
+const TYPE_LABELS = {N:'Notaire', I:'Agence immo', S:'Syndic', C:'Prescripteur +'};
+const TYPE_CLS = {N:'badge-n', I:'badge-i', S:'badge-s', C:'badge-c'};
+const ZONE_CLS = {A:'zone-a', B:'zone-b', C:'zone-c', D:'zone-d', E:'zone-e'};
+const PRIO_CLS = {1:'prio-1', 2:'prio-2', 3:'prio-3'};
 
-let prospects = PROSPECTS.map(p => ({...p}));
+let prospects = PROSPECTS.map(p => ({...p, comment:''}));
 
 function nextStatus(s) {
   const i = STATUS_SEQ.indexOf(s);
@@ -1001,19 +757,26 @@ function renderCRM() {
     (!fz || p.zone === fz) && (!ft || p.type === ft) && (!fs || p.status === fs)
   );
 
-  // Desktop table
   document.getElementById('crm-tbody').innerHTML = filtered.map(p => `
     <tr>
-      <td><div class="td-name">${p.name}</div></td>
-      <td><span class="${ZONE_CLS[p.zone]}">Zone ${p.zone}</span><br><span class="badge ${TYPE_CLS[p.type]}" style="margin-top:4px;display:inline-flex">${TYPE_LABELS[p.type]}</span></td>
+      <td>
+        <div class="td-name">${p.name}</div>
+        <div class="td-addr">${p.addr}</div>
+      </td>
+      <td>
+        <span class="${ZONE_CLS[p.zone]}">Zone ${p.zone}</span><br>
+        <span class="badge ${TYPE_CLS[p.type]}" style="margin-top:5px;display:inline-flex">${TYPE_LABELS[p.type]}</span>
+      </td>
       <td><span class="${PRIO_CLS[p.priority]}">P${p.priority}</span></td>
       <td><span class="badge ${STATUS_CLS[p.status]} status-badge" onclick="toggleStatus(${p.id})">${STATUS_LABELS[p.status]}</span></td>
-      <td class="td-note">${p.contact}</td>
-      <td class="td-note">${p.tel}</td>
-      <td class="td-note">${p.note}</td>
+      <td class="td-note">${p.contact}<br><small style="color:var(--text3)">${p.tel !== '—' ? `<a href="tel:${p.tel.replace(/\s/g,'')}">${p.tel}</a>` : '—'}</small></td>
+      <td class="td-note" style="max-width:140px">${p.note}</td>
+      <td class="comment-cell">
+        <div class="comment-text ${p.comment ? '' : 'empty'}">${p.comment || 'Aucun commentaire'}</div>
+        <button class="comment-edit-btn" onclick="openModal(${p.id})">✏️ Modifier</button>
+      </td>
     </tr>`).join('');
 
-  // Mobile cards
   document.getElementById('crm-cards').innerHTML = filtered.map(p => `
     <div class="prospect-card">
       <div class="pc-header">
@@ -1025,9 +788,15 @@ function renderCRM() {
         <span class="badge ${STATUS_CLS[p.status]} status-badge" onclick="toggleStatus(${p.id})">${STATUS_LABELS[p.status]}</span>
         <span class="badge" style="background:rgba(255,255,255,0.06);color:var(--text3)">Zone ${p.zone}</span>
       </div>
+      <div class="pc-row"><span>Adresse</span><span>${p.addr}</span></div>
       <div class="pc-row"><span>Contact</span><span>${p.contact}</span></div>
       ${p.tel !== '—' ? `<div class="pc-row"><span>Tél.</span><span><a href="tel:${p.tel.replace(/\s/g,'')}">${p.tel}</a></span></div>` : ''}
-      <div class="pc-row" style="border-bottom:none"><span>Note</span><span>${p.note}</span></div>
+      <div class="pc-row"><span>Note</span><span>${p.note}</span></div>
+      <div class="pc-comment">
+        <div class="pc-comment-label">Commentaire</div>
+        <div class="pc-comment-val">${p.comment || '—'}</div>
+        <button class="pc-comment-btn" onclick="openModal(${p.id})">✏️ Modifier</button>
+      </div>
     </div>`).join('');
 
   updateCounters();
@@ -1044,6 +813,36 @@ function updateCounters() {
   document.getElementById('cnt-progress').textContent = prospects.filter(p => ['contacted','rdv','hot'].includes(p.status)).length;
   document.getElementById('cnt-partner').textContent = prospects.filter(p => p.status === 'partner').length;
 }
+
+function openModal(id) {
+  currentCommentId = id;
+  const p = prospects.find(x => x.id === id);
+  document.getElementById('modal-prospect-name').textContent = p.name;
+  document.getElementById('modal-textarea').value = p.comment || '';
+  document.getElementById('comment-modal').classList.add('open');
+  document.getElementById('modal-textarea').focus();
+}
+
+function closeModal() {
+  document.getElementById('comment-modal').classList.remove('open');
+  currentCommentId = null;
+}
+
+function saveComment() {
+  if (currentCommentId === null) return;
+  const p = prospects.find(x => x.id === currentCommentId);
+  if (p) {
+    p.comment = document.getElementById('modal-textarea').value.trim();
+    renderCRM();
+  }
+  closeModal();
+}
+
+document.getElementById('comment-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function calcROI() {
   const nn = +document.getElementById('r-nn').value;
@@ -1072,64 +871,12 @@ function calcROI() {
   document.getElementById('res-miss').textContent = missions;
   document.getElementById('res-cpp').textContent = cpp.toLocaleString('fr-FR') + ' €';
 
-  let comment = ca < 3000 ? "Scénario de démarrage — objectif réaliste dès le 3e mois de prospection active." :
-    ca < 8000 ? "Scénario de développement — atteignable entre le 4e et 6e mois avec une dizaine de partenaires actifs." :
-    ca < 15000 ? "Scénario intermédiaire — correspond à un réseau de prescripteurs bien établi sur la CUD." :
-    ca < 25000 ? "Scénario de maturité — objectif à 12 mois, suppose un fort taux de recommandation et des contrats-cadres syndics." :
-    "Scénario ambitieux — suppose des accords exclusifs avec les plus gros notaires et la totalité des syndics de la CUD.";
+  const comment = ca < 3000  ? 'Scénario de démarrage — réaliste dès le 3e mois de prospection active.' :
+    ca < 8000  ? 'Scénario de développement — atteignable entre le 4e et 6e mois.' :
+    ca < 15000 ? 'Scénario intermédiaire — correspond à un réseau bien établi sur la CUD.' :
+    ca < 25000 ? 'Scénario de maturité — objectif à 12 mois avec contrats-cadres syndics.' :
+    'Scénario ambitieux — suppose des accords exclusifs et la totalité des syndics.';
   document.getElementById('scenario-comment').textContent = comment;
-}
-
-const CHECKLIST = [
-  'Plaquette commerciale ETI-DIAG (A5, ×30 min)',
-  'Cartes de visite Christophe (×50 min)',
-  'Grille tarifaire partenaire (×10)',
-  'Exemple de rapport de diagnostic (×3)',
-  'Fiche obligations légales 2025 (×10)',
-  'Bloc-notes + stylo (notes manuscrites)',
-  'Chargeur / batterie externe téléphone',
-  'Liste du jour (CRM imprimé ou mobile)'
-];
-const DIFF = [
-  'QR code ETI-DIAG (autocollant verso carte)',
-  'Mini-guide "Vos obligations légales 2025"',
-  'Témoignages clients notaires déjà partenaires',
-  'Engagement écrit délai 24–48h garanti',
-  'Portable Christophe visible dès la plaquette',
-  'Numéro urgence acte (dimanche inclus)'
-];
-
-function renderKit() {
-  document.getElementById('check-list').innerHTML = CHECKLIST.map((item, i) => `
-    <div class="checklist-item" id="ci-${i}" onclick="toggleCheck(${i})">
-      <svg class="check-icon" id="ci-icon-${i}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-      <span>${item}</span>
-    </div>`).join('');
-  document.getElementById('diff-list').innerHTML = DIFF.map(item => `
-    <div class="checklist-item" style="cursor:default">
-      <svg style="width:18px;height:18px;flex-shrink:0;margin-top:1px;color:var(--accent)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <span>${item}</span>
-    </div>`).join('');
-}
-
-function toggleCheck(i) {
-  const el = document.getElementById('ci-' + i);
-  const icon = document.getElementById('ci-icon-' + i);
-  const done = el.classList.toggle('done');
-  if (done) {
-    icon.classList.add('checked');
-    icon.innerHTML = '<polyline points="20 6 9 17 4 12"/><rect x="3" y="3" width="18" height="18" rx="2" style="opacity:0.2"/>';
-  } else {
-    icon.classList.remove('checked');
-    icon.innerHTML = '<rect x="3" y="3" width="18" height="18" rx="2"/>';
-  }
-}
-
-function showFiche() {
-  const v = document.getElementById('diag-sel').value;
-  document.querySelectorAll('.fiche').forEach(f => { f.style.display = 'none'; f.classList.remove('on'); });
-  const el = document.getElementById('f-' + v);
-  if (el) { el.style.display = 'block'; el.classList.add('on'); }
 }
 </script>
 </body>
