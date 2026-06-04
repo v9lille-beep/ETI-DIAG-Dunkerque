@@ -361,6 +361,7 @@ select option{background:var(--bg2);color:var(--text)}
             <option value="partner">Partenaire</option>
             <option value="cold">Froid</option>
           </select>
+          <button onclick="resetCRM()" style="margin-left:auto;font-size:12px;padding:8px 14px;background:transparent;border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius);color:#f87171;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap" title="Remet tous les statuts et commentaires à zéro">↺ Réinitialiser</button>
         </div>
         <div class="tbl-wrap desktop-only">
           <table>
@@ -742,7 +743,38 @@ const TYPE_CLS = {N:'badge-n', I:'badge-i', S:'badge-s', C:'badge-c'};
 const ZONE_CLS = {A:'zone-a', B:'zone-b', C:'zone-c', D:'zone-d', E:'zone-e'};
 const PRIO_CLS = {1:'prio-1', 2:'prio-2', 3:'prio-3'};
 
-let prospects = PROSPECTS.map(p => ({...p, comment:''}));
+const LS_KEY = 'etidag_crm_v1';
+
+function loadFromStorage() {
+  try {
+    const saved = localStorage.getItem(LS_KEY);
+    if (!saved) return null;
+    return JSON.parse(saved);
+  } catch(e) { return null; }
+}
+
+function saveToStorage() {
+  try {
+    const data = prospects.map(p => ({id: p.id, status: p.status, comment: p.comment}));
+    localStorage.setItem(LS_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function initProspects() {
+  const base = PROSPECTS.map(p => ({...p, comment:''}));
+  const saved = loadFromStorage();
+  if (!saved) return base;
+  // Merge saved statuts/commentaires sur les données de base
+  const map = {};
+  saved.forEach(s => { map[s.id] = s; });
+  return base.map(p => {
+    const s = map[p.id];
+    if (s) { p.status = s.status || p.status; p.comment = s.comment || ''; }
+    return p;
+  });
+}
+
+let prospects = initProspects();
 
 function nextStatus(s) {
   const i = STATUS_SEQ.indexOf(s);
@@ -804,7 +836,7 @@ function renderCRM() {
 
 function toggleStatus(id) {
   const p = prospects.find(x => x.id === id);
-  if (p) { p.status = nextStatus(p.status); renderCRM(); }
+  if (p) { p.status = nextStatus(p.status); saveToStorage(); renderCRM(); }
 }
 
 function updateCounters() {
@@ -812,6 +844,13 @@ function updateCounters() {
   document.getElementById('cnt-new').textContent = prospects.filter(p => p.status === 'new').length;
   document.getElementById('cnt-progress').textContent = prospects.filter(p => ['contacted','rdv','hot'].includes(p.status)).length;
   document.getElementById('cnt-partner').textContent = prospects.filter(p => p.status === 'partner').length;
+}
+
+function resetCRM() {
+  if (!confirm('Remettre tous les statuts et commentaires à zéro ? Cette action est irréversible.')) return;
+  localStorage.removeItem(LS_KEY);
+  prospects = initProspects();
+  renderCRM();
 }
 
 function openModal(id) {
@@ -833,6 +872,7 @@ function saveComment() {
   const p = prospects.find(x => x.id === currentCommentId);
   if (p) {
     p.comment = document.getElementById('modal-textarea').value.trim();
+    saveToStorage();
     renderCRM();
   }
   closeModal();
